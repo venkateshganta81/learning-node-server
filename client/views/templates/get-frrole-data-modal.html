@@ -1,0 +1,24 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" ng-click="cancel();" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Get Frrole Data for selected Analysis</h4>
+    </div>
+    <div class="modal-body">
+        <div class="popup-form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <select class="form-control" ng-model="$parent.analysisSelected">
+                        <option value="" selected>Select Analysis</option>
+                        <option value="{{$index}}" ng-repeat="analysis in clientFrroleDetails.analysisName">{{analysis}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="cancel();" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="getFrroleData();">Get Frrole Data</button>
+    </div>
+</div>

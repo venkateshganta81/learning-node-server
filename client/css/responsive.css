@@ -1,0 +1,211 @@
+@media(max-width:1200px){
+
+.container{ width: 98%;}    
+.header-rgt{ padding: 0;}    
+.header-lft { width: 10%;}
+.header-lft a { width: 100px;}
+.header-lft a img { width: 100%; height: auto;}
+.header-rgt { width: 70%;}
+.menu-lft .navbar-collapse { padding-left: 5px;}
+.sel-li{ padding: 6px 0 0;}
+.bg-need .navbar-inverse .navbar-nav>li>a{ padding: 16px 6px;}    
+.head-profile{ padding: 7px 0;}    
+.slide-head .nav-pills>li{padding: 10px 12px;}  
+    
+}
+
+@media(max-width:992px){
+
+.header-lft a { width: 90px;}
+.header-rgt { width: 88.5%; float: right; margin:0 0 30px;}
+.menu-lft .navbar-collapse { padding:0;}
+.sel-li{ padding: 6px 0 0;}
+.head-profile{ padding: 3px 0; float:none; width:250px; margin:0 auto;}    
+.slide-head .nav-pills>li{padding: 10px 0px;}
+.slide-head .nav>li>a{padding: 10px;font-size: 12px;}
+.in-align {width: 17%;} 
+.in-align.current{width: 15%;}
+.slide-head .nav{width: 83%;}
+.in-align.current .slide-head .nav{width: 85%;}
+    
+}
+
+@media(max-width:767px){
+
+.header-lft a { width: 120px;}
+.menu-lft {float: right; width: 100%;}
+.header-rgt{ width: 100%; position: relative;}    
+.menu-lft .navbar-inverse .navbar-toggle { background:#333; position: absolute; top:-50px; right: 0; z-index:99;}
+.menu-lft .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form { border: none;}
+.menu-lft .navbar-nav     { margin: 0;}
+.menu-lft .nav>li { text-align: center;}
+.menu-lft .nav>li a { display: inline-block;}
+.sel-li{ width: 100%;}    
+.sel-li select {width: 100px; display: block; margin: 0 auto;}
+.head-profile { width: 200px;position: absolute;top: 10px;left: 0;right: 0;}    
+    
+    
+}
+
+
+/* Profile Styles */
+@media(max-width:1245px){
+
+    .header-rgt{ padding: 0;}    
+    .header-lft { width: 10%;}
+    .header-lft a { width: 100px;}
+    .header-lft a img { width: 100%; height: auto;}
+    .header-rgt { width: 70%;}
+    .menu-lft .navbar-collapse { padding-left: 5px;}
+    .sel-li{ padding: 6px 0 0;}
+    .bg-need .navbar-inverse .navbar-nav>li>a{ padding: 14px 6px;}    
+    .head-profile{ padding: 4px 0;} 
+    .bg-need .navbar-inverse .navbar-nav>li.sel-li{padding:8px 0 7px 20px }
+    }
+    
+    
+    
+    @media(max-width:1200px){
+    
+    .container{ width: 98%;}    
+    .slide-head .nav-pills>li{padding: 10px 12px;}  
+     
+        
+    .bg-need .container-fluid{padding:0 15px;}
+    .bg-need .navbar-inverse .navbar-nav>li.sel-li> a{padding: 8px 4px;}
+    .bg-need .navbar-inverse .navbar-nav>li.sel-li{padding: 8px 0 7px 0;}
+    .upload-prf figure{width: 30px;height: 30px;}
+    .logout{margin: 0;}
+        
+    .profile-tabs .container-fluid{padding: 0 15px;} 
+    .profile-rgt{padding: 0;}
+    .profile-in{padding: 15px 10px;}
+    .prf-pic1 ul li{padding: 0 15px;}
+    .prf-pic1{padding: 50px 0 0 0;}
+    .social1-icons{padding: 80px 0 0 0;}
+    .person-p{width: 90%;}
+    .social-activity{padding: 30px 10px;}
+    .medium{padding: 10px;}
+    .medium-count{width: 75px; height: 75px;background-size: 100% auto;}
+    .medium-count.bg-1{background-size: 100% auto;}
+    .medium-txt{padding: 0;}
+    .feels-block{padding: 40px 0 0 0;}
+    .personality-block{padding:50px 0 0 0; }
+    .day-tasks ul li{padding: 0 8px 15px 0;}
+    .tasks-in{width: 105px;}
+    .social-rgt-in{padding: 10px 0;}
+    .social-rgt h2{padding: 0 0 10px;}
+    .i-list{padding: 10px 0 0;}
+    .politics{width: 65px;height: 65px;}
+    .mediaa{width: 60px;height: 60px;}
+    .sports{width: 55px;height: 55px;}
+    .enertainment{width: 50px;height: 50px;}
+    .internet{width: 45px;height: 45px;}
+    .books{width: 40px;height: 40px;}
+    .finance{width: 35px;height: 35px;}
+    .consumer{width: 30px;height: 30px;}
+    .lifestyle{width: 25px;height: 25px;}
+    .governament{width: 20px;height: 20px;}
+    .interest-list{width: 95%;}
+    .interest-list ul li{padding: 0px 2px 15px;}
+    .people{width: 75%}
+    .interests{padding: 0 0 30px 0;}
+    .likes-list{width: 60%;}
+    .share-in{width: 155px;}
+    .professional{padding: 30px 0 0 0;}
+    .count{margin: 20px auto 0;}
+    .portfolio{padding: 50px 0 30px;}
+    .port-in{width: 98%;}
+    .port-lft figure{width: 60px;height: 60px;}
+    .port-lft{width: 9%;}
+    .social-list ul li{padding: 0 3px;}
+    .port-rgt{width: 91%;}
+        
+    }
+    
+    @media(max-width:992px){
+    
+    .header-lft a { width: 90px;}
+    .header-rgt { width: 88.5%; float: right; margin:0 0 30px;text-align: right;}
+    .menu-lft{width: 100%;}
+    .menu-lft .navbar-collapse { padding:0;}
+    .sel-li{ padding: 6px 0 0;}
+    .head-profile{padding: 0;float:none;width:250px;margin:0 auto;}    
+    .slide-head .nav-pills>li{padding: 10px 0px;}
+    .slide-head .nav>li>a{padding: 10px;font-size: 12px;}
+    .in-align {width: 17%;} 
+    .in-align.current{width: 15%;}
+    .slide-head .nav{width: 83%;}
+    .in-align.current .slide-head .nav{width: 85%;}
+    .menu-lft .navbar-right {margin-right: 0;} 
+    .bg-need .container-fluid {padding: 0 6px;}
+    .bg-need{padding: 0 0 14px 0;}
+    .profile-tabs{padding: 30px 0;}
+    .profile-tabs .container-fluid {padding: 0 6px;}
+    .prf-head{padding: 15px;}
+    .tabs-align{padding: 20px 10px;}
+    .profile-lft .nav-tabs>li>a{padding: 12px 5px}
+    .prf-details{padding: 30px 10px;}
+    .prf-pic1 {padding: 30px 0 0 0;}
+    .prf-pic1 ul li figure img{width: 100%;}
+    .age{padding: 15px 0 0 0;}
+    .prf-pic1 ul li {padding: 0 15px 20px;}
+    .social1-icons {padding: 30px 0 0 0;}
+    .black-block{padding: 30px 0;}
+    .feels-align{width: 100%;}
+    .feels-block.float-rgt{width: 100%;}
+    .feels-block.float-lft{float: right;}
+    .feels-block h2{font-size: 14px; line-height: 14px;padding: 25px 15px 0 0;}
+    .personality-block ul li{padding: 0 15px 20px;}
+    .personality-block ul{padding: 30px 0 10px 0;}
+    .personality-block {padding: 30px 0 0 0;}
+    .social-lft{padding: 0 0 20px 0;}
+    .day-tasks ul {display: inline-block; width: 100%;text-align: center;}
+    .day-tasks ul li {padding: 0 8px 15px;float: none;display: inline-block;vertical-align: top;}
+    .social-rgt {padding: 0;}
+    .interest-main{padding: 30px 0;}
+    .politics{width: 50px;height: 50px;}
+    .mediaa{width: 45px;height: 45px;}
+    .sports{width: 40px;height: 40px;}
+    .enertainment{width: 35px;height: 35px;}
+    .internet{width: 35px;height: 35px;}
+    .books{width: 35px;height: 35px;}
+    .finance{width: 30px;height: 30px;}
+    .consumer{width: 25px;height: 25px;}
+    .lifestyle{width: 20px;height: 20px;}
+    .governament{width: 20px;height: 20px;}
+    .i-list{width: 100%;}
+    .interest-list{padding: 20px 0 5px 0;}
+    .people {width: 95%;}
+    .share ul li{padding: 0 2px 15px;}
+    .professional {padding: 10px 0 0 0;}
+    .count {margin: 10px auto 0;}
+    .port-lft {width: 20%;display: block;margin: 0 auto;float: none;}
+    .port-rgt {width: 100%;padding: 0;}   
+    .lft-port{width: 80%;display: block;margin: 0 auto;padding: 0 0 20px 0;}
+    .rgt-port{width: 80%;display: block;margin: 0 auto;}
+    .personality-txt{padding:15px 20px 20px; }
+    .brand-usage{padding:20px 20px 0; }
+    }
+    
+    @media(max-width:767px){
+    
+    .header-lft a { width: 120px;}
+    .menu-lft {float: right; width: 100%;}
+    .header-rgt{ width: 100%; position: relative;}    
+    .menu-lft .navbar-inverse .navbar-toggle { background:#333; position: absolute; top:-50px; right: 0; z-index:99;}
+    .menu-lft .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form { border: none;}
+    .menu-lft .navbar-nav     { margin: 0;}
+    .menu-lft .nav>li { text-align: center;}
+    .menu-lft .nav>li a { display: inline-block;}
+    .sel-li{ width: 100%;}    
+    .sel-li select {width: 100px; display: block; margin: 0 auto;}
+    .head-profile { width: 200px;position: absolute;top: 10px;left: 0;right: 0;}    
+    .profile-lft{padding: 0;}  
+    .profile-rgt .panel-title a {display: block;font-size: 14px;line-height: 14px;font-family: 'Gotham-Medium';font-weight: normal;text-transform: capitalize;}
+    .profile-rgt .panel-default>.panel-heading {text-align: center; margin: 0 0 15px;}
+    .feels-block.float-lft {float: right;width: 100%;} 
+    .likes-list { width: 70%;}
+    }
+
+    /* Profile Styles Ends */

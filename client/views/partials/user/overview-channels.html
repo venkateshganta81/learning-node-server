@@ -1,0 +1,256 @@
+<style>
+    #dataLine .x.axis text,
+    #range-chart .x.axis text {
+        text-anchor: end !important;
+        transform: rotate(-45deg);
+    }
+
+    #dataLine .bar {
+        width: 25px;
+    }
+
+    .microbar {
+        fill: red;
+    }
+
+    .dc-chart .pie-slice.external {
+        fill: #000;
+    }
+
+    .dc-chart .pie-slice {
+        fill: #fff;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    div.tooltip {
+        position: absolute;
+        text-align: center;
+        width: 60px;
+        height: 28px;
+        padding: 2px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+    }
+    #bubble-Chart {
+        margin: auto;
+    }
+</style>
+<div class="dashboard-container" ng-controller="UserCtrl" ng-init="getPaymentGateWayWiseInventory();getOperatorWiseInventory();">
+<div class="page">
+      <header class="header">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <div class="navbar-header">
+                <a href="/dashboard" class="navbar-brand">
+                  <div class="brand-text brand-big"><img src="images/abhibus.png" width="40px" alt="" ></div>
+                  <div class="brand-text brand-small"><img src="images/abhibus.png" width="40px" alt="" ></div></a>
+              </div>
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <li class="nav-item dropdown">
+                    <!-- <button type="button" class="nav-link language dropdown-toggle dLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{selectedAnalysis || "Pick Analysis"}}</span>
+                        <span class="caret"></span>
+                    </button> -->
+                    <!-- <ul aria-labelledby="languages" class="dropdown-menu">
+                        <li ng-repeat="analysis in myData.analysisName">
+                            <a rel="nofollow" href="#" class="cursor" ng-click="loadAnalysis($index,analysis);"> {{analysis}}</a>
+                        </li>
+                    </ul> -->
+                </li>
+                <li class="nav-item"><a href="" ng-click="logOut()" class="nav-link">Logout <i class="fa fa-sign-out"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="page-content d-flex align-items-stretch"> 
+        <nav class="side-navbar">
+          <ul class="list-unstyled">
+              <li class="active"><a href="#OverviewDropdown" aria-expanded="false" data-toggle="collapse"> <i class="linea-icon linea-basic fa-fw" data-icon="H"></i> Analytics </a>
+                <ul id="OverviewDropdown" class="list-unstyled ">
+                  <li class="active"><a href="/sales-analytics">Sales Analytics</a></li>
+                  <li><a href="#">Operator Analytics</a></li>
+                  <li><a href="#">Route-wise Analytics</a></li>
+                  <li><a href="#">Customer Analytics</a></li>
+                  <li><a href="#">Booking Patterns</a></li>
+                  <li><a href="#">Cancellations Patterns</a></li>
+                  <li><a href="#">Top Performers</a></li>
+                  <li><a href="#">Revenue Statistics</a></li>
+                  <li><a href="#">Offers/Discount Results</a></li>
+                </ul>
+              </li>
+              <li><a href="#" aria-expanded="false" data-toggle="collapse"> <i class="linea-icon linea-basic fa-fw" data-icon="."></i>Add User</a>
+              </li>
+          </ul>
+        </nav>
+        <div class="content-inner">
+          <div class="breadcrumb-holder container-fluid">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#"> <i class="fa fa-long-arrow-left"></i> Home</a></li>
+              <li class="breadcrumb-item"><a href="#">  <i class="fa fa-long-arrow-left"></i> Analytics</a></li>
+              <li class="breadcrumb-item active">Sales Analytics</li>
+            </ul>
+          </div>
+          <!--Operator Wise Analytics-->
+          <section>
+            <div class="container-fluid">
+              <div class="row">
+                <h2>Operator</h2>
+                <div class="dashboard-wrapper">
+                    <div class="col-sm-12" ng-hide="message">
+                        <div class="pad-30">
+                            <!-- <div class="col-sm-12 mtb-10 ">
+                                <h2 class="text-center dark-color">Overview - Channels</h2>
+                            </div> -->
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12">
+                                <!-- <a href="#" class="btn btn-custom text-right" ng-click="knowMore( 'channels')" ;>Tips</a> -->
+                                <a class="reset btn btn-custom" href="javascript: dc.filterAll(); dc.redrawAll();">Reset All</a>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div style="display:flex">
+                                <div class="col-sm-3">
+                                    <div class="dataChartWrap">
+                                        <div id="operatorRepeat">
+                                            <!-- <div class="tPos">
+                                                <div class="toolTip">Click Here
+                                                    <div class="toolTipTail"></div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="operatorDataLine"></div>
+                                    <div class="rangePos">
+                                        <!-- <div class="rangetoolTip">Scroll Here
+                                            <div class="rangetoolTipTail"></div>
+                                        </div> -->
+
+                                    </div>
+                                    <div id="operatorRangeChart"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <!-- <div class="col-sm-2">
+                                <div class="bubblePos">
+                                    <div class="bubbletoolTip">Click Any Bubbles
+                                        <div class="bubbletoolTipTail"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-sm-12">
+                                <div id="bubble-Chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="message" class="col-sm-12  pos-rel">
+                        <div class="subs-message">
+                            <h2>{{message}}</h2>
+                        </div>
+                    </div>
+                </div> 
+
+              </div>
+            </div>
+          </section>
+          <!--Payment Gateway Analytics-->
+          <section>
+            <div class="container-fluid">
+              <div class="row">
+                <h2>Payment Gateway</h2>
+                <div class="dashboard-wrapper">
+                    <div class="col-sm-12" ng-hide="message">
+                        <div class="pad-30">
+                            <!-- <div class="col-sm-12 mtb-10 ">
+                                <h2 class="text-center dark-color">Overview - Channels</h2>
+                            </div> -->
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12">
+                                <!-- <a href="#" class="btn btn-custom text-right" ng-click="knowMore( 'channels')" ;>Tips</a> -->
+                                <a class="reset btn btn-custom" href="javascript: dc.filterAll(); dc.redrawAll();">Reset All</a>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div style="display:flex">
+                                <div class="col-sm-3">
+                                    <div class="dataChartWrap">
+                                        <div id="repeat">
+                                            <!-- <div class="tPos">
+                                                <div class="toolTip">Click Here
+                                                    <div class="toolTipTail"></div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="dataLine"></div>
+                                    <div class="rangePos">
+                                        <!-- <div class="rangetoolTip">Scroll Here
+                                            <div class="rangetoolTipTail"></div>
+                                        </div> -->
+
+                                    </div>
+                                    <div id="range-chart"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <!-- <div class="col-sm-2">
+                                <div class="bubblePos">
+                                    <div class="bubbletoolTip">Click Any Bubbles
+                                        <div class="bubbletoolTipTail"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-sm-12">
+                                <div id="bubble-Chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="message" class="col-sm-12  pos-rel">
+                        <div class="subs-message">
+                            <h2>{{message}}</h2>
+                        </div>
+                    </div>
+                </div> 
+
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- <script>
+$(document).ready(function () {
+    'use strict';
+    $('.side-navbar').addClass('shrinked'); // default menu close
+    $('[data-toggle="tooltip"]').tooltip(); // default tooltip
+    $('#toggle-btn').on('click', function (e) { // Sidebar Functionality
+        e.preventDefault();
+        $(this).toggleClass('active');
+        $('.side-navbar').toggleClass('shrinked');
+        $('.content-inner').toggleClass('active');
+        $(document).trigger('sidebarChanged');
+        if ($(window).outerWidth() > 1183) {
+            if ($('#toggle-btn').hasClass('active')) {
+                $('.navbar-header .brand-small').hide();
+                $('.navbar-header .brand-big').show();
+            } else {
+                $('.navbar-header .brand-small').hide();
+                $('.navbar-header .brand-big').show();
+            }
+        }
+        if ($(window).outerWidth() < 1183) {
+            $('.navbar-header .brand-small').show();
+        }
+    });
+});
+</script> -->

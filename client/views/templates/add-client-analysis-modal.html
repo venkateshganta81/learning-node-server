@@ -1,0 +1,39 @@
+<div class="modal-content">
+        <div class="modal-header">
+          <button type="button" ng-click="cancel();" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Client Analysis</h4>
+        </div>
+        <div class="modal-body">
+            <div class="popup-form">
+                <div class="col-sm-12">
+                    <input class="form-control" ng-model="a.analysisName" placeholder="Add  Analysis Name">
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="a.overviewData" placeholder="Add overview Analysis">
+                </div>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="a.topicsData" placeholder="Add topics Analysis">
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="a.keywordsData" placeholder="Add keywords Analysis">
+                </div>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="a.locationsData" placeholder="Add locations Analysis">
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="a.influencersData" placeholder="Add influencers Analysis">
+                </div>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="a.sitesData" placeholder="Add sites Analysis">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancel();">Close</button>
+                <button type="button" class="btn btn-custom" ng-click="addAnalysisData();">Save</button>
+        </div>
+</div>

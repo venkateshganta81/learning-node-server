@@ -1,0 +1,75 @@
+<!-- <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" ng-click="cancel();" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Sign Up</h4>
+        </div>
+        <div class="modal-body">
+            <div class="popup-form text-center">
+                <div class="form-group">
+                    <input type="text" ng-model="signUpParams.name" class="form-control login-input" placeholder="Name" />
+                </div>
+                <div class="form-group">
+                    <input type="text"  class="form-control login-input" placeholder="Email" />
+                </div>
+                <div class="form-group">
+                    <input type="text"  class="form-control login-input" placeholder="Phone Number" />
+                </div>
+                <div class="form-group">
+                   <h4 ng-show="signUpParams.message" style="color: red;">{{signUpParams.message}}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="button"  class="btn btn-primary btn-lg" value="Get Started" />
+        </div>
+</div> -->
+<div class="hats-main" ng-controller="LoginCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="tbl">
+                <div class="tbl-cel">
+                    <div class="forms-align col-xs-12">
+                        <div class="forms-in clearfix">
+                            <div class="logo">
+                                <a href="#">
+                                    <img src="images/logo.png" width="516" height="165" alt="">
+                                </a>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="form-group">
+                                        <input class="form-control" ng-model="signUpParams.name" type="text" placeholder="Name">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-group">
+                                        <input class="form-control" ng-model="signUpParams.email" type="text" placeholder="Email">
+                                    </div>
+                                </li>
+
+
+
+                                <li>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" ng-model="signUpParams.phone" placeholder="Mobile Number">
+                                    </div>
+                                </li>
+                                <li>
+                                        <div class="form-group">
+                                                <h4 ng-show="signUpParams.message" style="color: red;">{{signUpParams.message}}</h4>
+                                             </div>
+                                </li>
+                                <li>
+                                    <button type="submit" class="login-btn" ng-click="signUp();" value="Submit">SIGN UP</button>
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
