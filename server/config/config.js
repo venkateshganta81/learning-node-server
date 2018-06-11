@@ -1,15 +1,29 @@
-module.exports = {
-    "jwt": {
-      "secret": "abhibus@321#1"
-    },
-    "sendGrid":{
-      "apiKey":"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",
-      "adminEmail":"venkateshganta81@gmail.com",
-      "senderEmail":"venkateshganta81@gmail.com"
-    },
-    "port":3001,
-    "bodyParserLimit": "50mb",
-    "DB":{
-      "url": "mongodb://13.228.208.182:27017/abhibus"
-    }
-   };
+
+var fs = require('fs');
+
+function getUserHome() {
+    return process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+}
+
+var localConfigPath = getUserHome() + '/abhibus-config.json';
+var projectConfigPath = __dirname + '/config.json';
+
+if(process.env.NODE_ENV === "test") {
+    projectConfigPath = __dirname + '/test_config.json';
+}
+
+var selectedConfigPath;
+
+if(fs.existsSync(localConfigPath)) {
+    selectedConfigPath = localConfigPath;
+} else if (fs.existsSync(projectConfigPath)) {
+    selectedConfigPath = projectConfigPath;
+} else {
+    console.log('CONFIG FILE DOESNT EXIST');
+    process.exit();
+}
+
+var finalJSONConfig = JSON.parse(fs.readFileSync(selectedConfigPath));
+
+module.exports = finalJSONConfig;
+

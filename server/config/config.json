@@ -1,0 +1,15 @@
+{
+  "jwt": {
+    "secret": "hatsai@321#1"
+  },
+  "sendGrid":{
+    "apiKey":"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",
+    "adminEmail":"akhilatpi@gmail.com",
+    "senderEmail":"akhilatpi@gmail.com"
+  },
+  "port":3001,
+  "bodyParserLimit": "50mb",
+  "DB":{
+    "url": "mongodb://localhost:27017/abhibus"
+  }
+}
