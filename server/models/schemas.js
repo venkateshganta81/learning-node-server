@@ -84,10 +84,18 @@ var inventorySchema = mongoose.Schema({
   repetitive: Number
 });
 
+var pgDateAggregation = mongoose.Schema({
+    _id: Object,
+    count: Number,
+    TicketAmount: Number
+});
 var UsersColl = connect.model("users", userSchema);
 var InventoryColl = connect.model("inventories", inventorySchema, "inventories");
+
+var pgDateAggregation = connect.model("pgDateAggregation", pgDateAggregation, "pgDateAggregation");
 
 module.exports = {
   UsersColl: UsersColl,
   InventoryColl: InventoryColl,
+  pgDateAggregation:pgDateAggregation
 };
