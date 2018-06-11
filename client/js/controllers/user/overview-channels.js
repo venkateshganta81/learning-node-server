@@ -1,4 +1,4 @@
-app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log', '$document', '$cookies', 'uiGridConstants', 'Upload', 'UserServices', '$timeout', function ($scope, $rootScope, $state, $uibModal, $log, $document, $cookies, uiGridConstants, Upload, UserServices, $timeout) {
+app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log', '$document', '$cookies',  'UserServices', '$timeout', function ($scope, $rootScope, $state, $uibModal, $log, $document, $cookies,  UserServices, $timeout) {
 
     /* Getting user details from db and checking expiry data */
 
@@ -39,7 +39,7 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
         console.log('operatorData',operatorData);
         var repetitionChart = dc.pieChart('#operatorRepeat');
         var yearlyChart = dc.compositeChart("#operatorDataLine");
-        var filterChart = dc.barChart('#operatorRangeChart');
+        /* var filterChart = dc.barChart('#operatorRangeChart'); */
 
 
         var xMin = d3.min(operatorData, function (d) { return parseInt(new Date(d._id.BookedDate).getTime())  });
@@ -68,15 +68,15 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
             }))
         }
         repetitionChart
-            .width(400)
-            .height(300)
+            .width(250)
+            .height(250)
             .slicesCap(12)
-            .innerRadius(15)
+            .innerRadius(0)
             .dimension(repetitionDim)
             .group(repetitionGroup);
 
 
-        filterChart
+        /* filterChart
             .width(850)
             .height(70)
             .margins({ top: 0, bottom: 60, left: 80, right: 40 })
@@ -88,7 +88,7 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
 
 
         filterChart.xAxis().ticks(30);
-        filterChart.yAxis().ticks(0).outerTickSize(0);
+        filterChart.yAxis().ticks(0).outerTickSize(0); */
 
         yearlyChart
             .width(850)
@@ -155,10 +155,10 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
             }))
         }
         repetitionChart
-            .width(400)
-            .height(300)
+            .width(250)
+            .height(250)
             .slicesCap(12)
-            .innerRadius(15)
+            .innerRadius(0)
             .dimension(repetitionDim)
             .group(repetitionGroup);
 

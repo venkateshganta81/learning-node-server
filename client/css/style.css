@@ -98,7 +98,7 @@ table {
 .content-inner {
   position: relative;
   /* width: calc(100% - 250px);*/
-  width: 100%;
+  /* width: 100%; */
   min-height: calc(100vh - 40px);
   padding-bottom: 60px;
 }
@@ -3426,7 +3426,7 @@ a > code {
     -webkit-transition-property:background,opacity,-webkit-box-shadow,-webkit-transform;
     transition-property:background,opacity,box-shadow,transform;
     -webkit-transition-timing-function:ease-in;
-    transition-timing-function:ease-in
+    transition-timing-function:ease-in;
     z-index:1;
 }
 .dlink:hover .deshInfo{
@@ -3531,81 +3531,7 @@ nav.side-navbar ul li.active > a:hover i{
  background-size: 60px 60px;
 }
 
-/* topics */
-.topics_bubbleWrap {
- background:url("../images/dashboard_icons/topics/topics_bubblewarp_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.overview_card:hover .topics_bubbleWrap {
- background:url("../images/dashboard_icons/topics/topics_bubblewarp_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.topics_wordcloud {
- background:url("../images/dashboard_icons/topics/topics_wordcloud_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.topics_card:hover .topics_wordcloud {
- background:url("../images/dashboard_icons/topics/topics_wordcloud_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.topics_trends {
- background:url("../images/dashboard_icons/topics/trends/topics_trends_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.topics_card:hover .topics_trends {
- background:url("../images/dashboard_icons/topicstrends/topics_trends_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
 
-/* Keywords */
-.keywords_bubbleWrap {
- background:url("../images/dashboard_icons/keywords/keywords_bubblewarp_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.keywords_card:hover .keywords_bubbleWrap {
- background:url("../images/dashboard_icons/keywords/keywords_bubblewarp_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.keywords_wordcloud {
- background:url("../images/dashboard_icons/keywords/keywords_wordcloud_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.keywords_card:hover .keywords_wordcloud {
- background:url("../images/dashboard_icons/keywords/keywords_wordcloud_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
-
-
-
-/* Locations */
-.locations_cities {
- background:url("../images/dashboard_icons/locations/locations_cities_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.locations_card:hover .locations_cities, .topics_card:hover .locations_cities {
- background:url("../images/dashboard_icons/locations/locations_cities_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.locations_countries {
- background:url("../images/dashboard_icons/locations/locations_countries_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.locations_card:hover .locations_countries, .topics_card:hover .locations_countries {
- background:url("../images/dashboard_icons/locations/locations_countries_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
-
-
-
-/* Influencers */
-.influencers_authors {
- background:url("../images/dashboard_icons/influencers/influencers_authors_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.influencers_card:hover .influencers_authors {
- background:url("../images/dashboard_icons/influencers/influencers_authors_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
 
 
 /* sizes */
@@ -3614,25 +3540,7 @@ nav.side-navbar ul li.active > a:hover i{
 }
 
 
-/* sites */
-.sites_sites {
- background:url("../images/dashboard_icons/sites/sites_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.sites_card:hover .sites_sites {
- background:url("../images/dashboard_icons/sites/sites_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
 
-/* profiles */
-.profiles_profiles {
- background:url("../images/dashboard_icons/profiles/profiles_bw.png") center center no-repeat;
- background-size: 60px 60px;
-}
-.profiles_card:hover .profiles_profiles {
- background:url("../images/dashboard_icons/profiles/profiles_color.png") center center no-repeat;
- background-size: 60px 60px;
-}
 
 .dLink {
   border:0px !important;
