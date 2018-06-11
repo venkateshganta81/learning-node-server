@@ -1,31 +1,30 @@
-module.exports = {
-    jwt: {
-        secret: "hatsai@321#1",
-    },
-    sendGrid:{
-        apiKey:'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',
-        adminEmail:'akhilatpi@gmail.com',
-        senderEmail:'akhilatpi@gmail.com'
-       },
-    port:3001,
-    bodyParserLimit: '50mb',
-   
-    /* Data Base for Development */
-    DB:{
-        url: "mongodb://localhost:27017/abhibus",
-        /* user: 'hatsai',
-        password: 'hatsai@123#' */
-    }
-   
-    /* Data Base for Server */
-    /* DB:{
-        url: "mongodb://localhost/hats-ai",
-        user: 'hatsai',
-        password: 'hatsai@123#MTW>81'
-    } */
 
+var fs = require('fs');
 
-   
-};
+function getUserHome() {
+    return process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+}
+
+var localConfigPath = getUserHome() + '/abhibus-config.json';
+var projectConfigPath = __dirname + '/config.json';
+
+if(process.env.NODE_ENV === "test") {
+    projectConfigPath = __dirname + '/test_config.json';
+}
+
+var selectedConfigPath;
+
+if(fs.existsSync(localConfigPath)) {
+    selectedConfigPath = localConfigPath;
+} else if (fs.existsSync(projectConfigPath)) {
+    selectedConfigPath = projectConfigPath;
+} else {
+    console.log('CONFIG FILE DOESNT EXIST');
+    process.exit();
+}
+
+var finalJSONConfig = JSON.parse(fs.readFileSync(selectedConfigPath));
+
+module.exports = finalJSONConfig;
 
 
