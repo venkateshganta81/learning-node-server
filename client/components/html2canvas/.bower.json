@@ -1,0 +1,14 @@
+{
+  "name": "html2canvas",
+  "homepage": "https://github.com/niklasvh/html2canvas",
+  "version": "1.0.0-alpha.12",
+  "_release": "1.0.0-alpha.12",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0-alpha.12",
+    "commit": "2df3213943c36570cda833d30d26f5da8c2817f7"
+  },
+  "_source": "https://github.com/niklasvh/html2canvas.git",
+  "_target": "^1.0.0",
+  "_originalSource": "html2canvas"
+}

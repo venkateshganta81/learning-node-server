@@ -27,16 +27,11 @@
     "jQuery": "2.1.0",
     "crypto-js": "^3.1.9",
     "angular-cookies": "^1.6.6",
-    "ng-tags-input": "^3.2.0",
-    "ng-file-upload": "^12.2.13",
     "angular-ui-grid": "^4.0.6",
     "sweetalert2": "^7.0.9",
     "dcjs": "^2.1.9",
-    "js-xlsx": "^0.11.14",
     "d3-queue": "^3.0.7",
     "ngstorage": "^0.3.11",
-    "html2canvas": "^1.0.0",
-    "heatmap.js-amd": "^2.0.5",
     "angularLocalStorage": "ngStorage#^0.3.2"
   },
   "resolutions": {
