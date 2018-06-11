@@ -8,7 +8,6 @@ var fsExtra = require('fs-extra');
 var fs = require('fs');
 var sendGridConfig = require('../config/config').sendGrid;
 var SendGrid = require('sendgrid-nodejs').SendGrid;
-var XLSX = require('xlsx');
 var sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(sendGridConfig.apiKey);
 var generatePassword = require('generate-password');

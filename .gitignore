@@ -1,7 +1,5 @@
-/client/components/
 /bower_components/
 /.idea/
 /package-lock.json
 /npm-debug.log
 /node_modules/
-/client/components/

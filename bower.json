@@ -29,8 +29,7 @@
     "sweetalert2": "^7.0.9",
     "dcjs": "^2.1.9",
     "d3-queue": "^3.0.7",
-    "ngstorage": "^0.3.11",
-    "html2canvas": "^1.0.0"
+    "ngstorage": "^0.3.11"
   }
 }
 
