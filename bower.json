@@ -1,6 +1,6 @@
 {
-  "name": "Abhi Bus",
-  "description": "Abhi Bus",
+  "name": "AbhiBus",
+  "description": "AbhiBus",
   "main": "server.js",
   "authors": [
     "Venkatesh"
