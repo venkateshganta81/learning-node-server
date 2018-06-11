@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log', '$document', '$cookies', '$interval', 'CommonServices', '$sessionStorage', function ($scope, $rootScope, $state, $uibModal, $log, $document, $cookies, $interval, CommonServices, $sessionStorage) {
+app.controller('LoginCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log', '$document', '$cookies', '$interval', 'CommonServices', function ($scope, $rootScope, $state, $uibModal, $log, $document, $cookies, $interval, CommonServices, $sessionStorage) {
     $rootScope.userLogin = false;
 
 

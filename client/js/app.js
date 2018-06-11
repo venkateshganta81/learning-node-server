@@ -1,4 +1,4 @@
-var app = angular.module('abhiBus', ['ui.router', 'ui.bootstrap', 'ngCookies', 'ngTagsInput', 'ngFileUpload', 'ui.grid', 'ui.grid.edit','ngStorage']);
+var app = angular.module('abhiBus', ['ui.router', 'ui.bootstrap', 'ngCookies']);
 
 
 app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
