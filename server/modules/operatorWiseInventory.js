@@ -10,6 +10,20 @@ var config = require("../config/config");
 
 operatorWiseInventory.prototype.getOperatorWiseInventory = function (callback) {
     var retObj = {};
+    async.parallel({
+        operators: function (operatorsCallback) {
+            InventoryColl.distinct("OperatorName").exec(function (err, operators) {
+                operatorsCallback(err, operators);
+            })
+        },
+        aggregatedData: function(error, agCallback){
+            agCallback();
+        }
+
+    }, function(error, results){
+        console.log(results);
+    });
+    /*
     InventoryColl.aggregate([{
         $group: {
             _id: { OperatorName: "$OperatorName", BookedDate: "$BookedDate" },
@@ -32,7 +46,7 @@ operatorWiseInventory.prototype.getOperatorWiseInventory = function (callback) {
             retObj.message = "No Data was found";
             callback(retObj);
         }
-    })
+    })*/
 }
 
 module.exports = new operatorWiseInventory();
