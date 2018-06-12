@@ -1,10 +1,12 @@
 "use strict";
 var operatorWiseInventory = function() {};
 var mongoose = require("mongoose");
+var async = require('async');
 var ObjectId = mongoose.Types.ObjectId;
 var _ = require("underscore");
 var fs = require("fs");
 var InventoryColl = require("../models/schemas").InventoryColl;
+var operatorAggregation = require("../models/schemas").operatorAggregation;
 
 var config = require("../config/config");
 
@@ -16,37 +18,17 @@ operatorWiseInventory.prototype.getOperatorWiseInventory = function (callback) {
                 operatorsCallback(err, operators);
             })
         },
-        aggregatedData: function(error, agCallback){
-            agCallback();
+        aggregatedData: function(agCallback) {
+            operatorAggregation.find({}).exec(function (err, aggregatedData) {
+                agCallback(err, aggregatedData);
+            });
         }
-
     }, function(error, results){
-        console.log(results);
+        retObj.operators = results.operators;
+        retObj.aggregatedData = results.aggregatedData;
+        retObj.status = true;
+        callback(retObj);
     });
-    /*
-    InventoryColl.aggregate([{
-        $group: {
-            _id: { OperatorName: "$OperatorName", BookedDate: "$BookedDate" },
-            count: { $sum: 1 },
-            TicketAmount: { $sum: "$TicketAmount" }
-          }
-    }],function (err, operatorWiseInventory) {
-        if (err) {
-            retObj.status = false;
-            retObj.message = "Error While Getting Inventory";
-            callback(retObj);
-        } else if (operatorWiseInventory) {
-            console.log('operatorWiseInventory',operatorWiseInventory)
-            retObj.status = true;
-            retObj.message = "Inventory Found";
-            retObj.data = operatorWiseInventory;
-            callback(retObj);
-        } else {
-            retObj.status = false;
-            retObj.message = "No Data was found";
-            callback(retObj);
-        }
-    })*/
 }
 
 module.exports = new operatorWiseInventory();
