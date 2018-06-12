@@ -2,7 +2,6 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
     /* Getting user details from db and checking expiry data */
     $scope.selectedOperator = "All Operators";
-
     $scope.getOperatorWiseInventory = function () {
         if ($cookies.get('token')) {
             UserServices.getOperatorWiseInventory(function (success) {
@@ -10,7 +9,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
                 if (success.data.status) {
                     $scope.operatorsNames = success.data.operators
                     $scope.operatorData = success.data.aggregatedData;
-                    $scope.drawGraphforOperator("all")
+                    $scope.drawGraphforOperator("All Operators");
                 } else {
 
                 }
@@ -25,7 +24,9 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
     $scope.drawGraphforOperator = function (operator) {
-        if (operator = ! 'all') {
+        if (operator == 'All Operators') {
+            operatorAutomatedCharts($scope.operatorData);
+        }else{
             $scope.selectedOperatorWiseAnalytics = "";
             $scope.selectedOperator = operator;
             $scope.error = "";
@@ -37,8 +38,6 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
             } else {
                 $scope.error = "No Data for Selected Operator"
             }
-        }else{
-            operatorAutomatedCharts($scope.operatorData);
         }
 
     }
@@ -129,7 +128,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         dc.filterAll();
         dc.redrawAll();
         $scope.selectedOperator = "All Operators";
-        $scope.drawGraphforOperator("all");
+        $scope.drawGraphforOperator("All Operators");
     }
 
 }]);
