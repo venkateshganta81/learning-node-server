@@ -1,14 +1,14 @@
 app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$document', '$cookies', 'UserServices', '$timeout', function ($scope, $rootScope, $state, $log, $document, $cookies, UserServices, $timeout) {
 
     /* Getting user details from db and checking expiry data */
-
+    $scope.selectedOperator = "select Operator";
     $scope.getOperatorWiseInventory = function () {
         UserServices.getOperatorWiseInventory(function (success) {
+            console.log(success)
             if (success.data.status) {
-                $scope.operatorData = success.data.data;
-                /* operatorAutomatedCharts($scope.operatorData); */
-                console.log($scope.operatorData);
-                $scope.drawGraphforOperator();
+                $scope.operatorsNames = success.data.operators
+                $scope.operatorData = success.data.aggregatedData;
+                console.log($scope.operatorsNames.length);
             } else {
 
             }
@@ -19,13 +19,19 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
 
-    $scope.drawGraphforOperator = function () {
-        console.log($scope.selectedOperator)
-        console.log($scope.operatorData);
-        $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function(d){ if(d._id.OperatorName === $scope.selectedOperator){return d}});
-        $scope.operatorNames = _.filter($scope.operatorData, function(d){ return d._id.OperatorName });
-        console.log($scope.operatorNames);
-        /* operatorAutomatedCharts($scope.selectedOperatorWiseAnalytics) */
+    $scope.drawGraphforOperator = function (operator) {
+        $scope.selectedOperatorWiseAnalytics="";
+        $scope.selectedOperator = operator;
+        $scope.error = "";
+        console.log($scope.selectedOperator , $scope.operatorData)
+        $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function(d){ if(d._id.OperatorName == operator){return d}});
+        console.log($scope.selectedOperatorWiseAnalytics);
+        if($scope.selectedOperatorWiseAnalytics){
+            operatorAutomatedCharts($scope.selectedOperatorWiseAnalytics)
+        }else{
+            $scope.error = "No Data for Selected Operator"
+        }
+        
     }
     
 

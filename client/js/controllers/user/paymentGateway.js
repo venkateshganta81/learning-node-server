@@ -160,14 +160,15 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
             .slicesCap(12)
             .innerRadius(0)
             .dimension(repetitionDim)
-            .group(repetitionGroup)
-            .legend(dc.legend().x(0).y(0).gap(5).horizontal(true));
+            .group(repetitionGroup);
+
+            /* repetitionChart.legend(dc.legend().y(150)); */
 
 
         filterChart
             .width(850)
             .height(70)
-            .margins({ top: 0, bottom: 60, left: 80, right: 40 })
+            .margins({ top: 0, bottom: 60, left: 80, right: 0 })
             .dimension(dateDimension)
             .group(groups[0])
             .alwaysUseRounding(true)
