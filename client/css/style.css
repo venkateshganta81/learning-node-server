@@ -2,6 +2,7 @@
 body {
   overflow-x: hidden;
   font-family:Poppins,sans-serif;
+  font-size: 14px!important;
 }
 
 a,
@@ -34,6 +35,18 @@ canvas {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.btn-custom{
+  width: 100%;
+  background: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.operators-dropdown-menu{
+  max-height: 170px;
+  overflow-y: auto;
 }
 
 .container-fluid {
@@ -389,8 +402,7 @@ input {
 */
 nav.side-navbar {
   background: #fff;
-  min-width: 250px;
-  max-width: 250px;
+  padding: 0px;
   color: #686a76;
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
@@ -670,11 +682,12 @@ nav.side-navbar.shrinked .sidebar-header .title {
 * ==========================================================
 */
 nav.navbar {
-  background: rgba(51,129,160,1);
+  background:#fff;
   padding-top: 0px;
   min-height: 50px;
   padding-bottom: 0px;
-  color: #fff;
+  color: #000;
+  margin-bottom: 0px;
   position: relative;
   border-radius: 0;
 -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.3);

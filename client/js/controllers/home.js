@@ -50,10 +50,10 @@ app.controller('LoginCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
                     $rootScope.userLogin = true;
                     if (success.data.userType === 'superAdmin') {
                         $rootScope.admin = true;
-                        $state.go('user-data', { activeTab: 'user-data' });
+                        $state.go('paymentGateway-data', { activeTab: 'paymentGateway-data' });
                     } else {
                         $rootScope.admin = false;
-                        $state.go('user-data', { activeTab: 'user-data' });
+                        $state.go('paymentGateway-data', { activeTab: 'paymentGateway-data' });
                     }
 
                 } else {

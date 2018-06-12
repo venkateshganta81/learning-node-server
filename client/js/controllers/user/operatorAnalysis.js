@@ -1,67 +1,69 @@
 app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$document', '$cookies', 'UserServices', '$timeout', function ($scope, $rootScope, $state, $log, $document, $cookies, UserServices, $timeout) {
 
     /* Getting user details from db and checking expiry data */
-
-    $scope.getOperatorWiseInventory = function () {
-        UserServices.getOperatorWiseInventory(function (success) {
-            if (success.data.status) {
-                $scope.operatorData = success.data.data;
-                /* operatorAutomatedCharts($scope.operatorData); */
-                console.log($scope.operatorData);
-                $scope.drawGraphforOperator();
-            } else {
-
-            }
-        }, function (error) {
-
-        })
-    }
-
-
-
-    $scope.drawGraphforOperator = function () {
-        console.log($scope.selectedOperator)
-        console.log($scope.operatorData);
-        $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function(d){ if(d._id.OperatorName === $scope.selectedOperator){return d}});
-        $scope.operatorNames = _.filter($scope.operatorData, function(d){ return d._id.OperatorName });
-        console.log($scope.operatorNames);
-        /* operatorAutomatedCharts($scope.selectedOperatorWiseAnalytics) */
-    }
+    $scope.selectedOperator = "select Operator";
     
+    $scope.getOperatorWiseInventory = function () {
+        if ($cookies.get('token')) {
+            UserServices.getOperatorWiseInventory(function (success) {
+                console.log(success)
+                if (success.data.status) {
+                    $scope.operatorsNames = success.data.operators
+                    $scope.operatorData = success.data.aggregatedData;
+                    console.log($scope.operatorsNames.length);
+                } else {
+
+                }
+            }, function (error) {
+
+            })
+        } else {
+            $state.go('login');
+        }
+    }
+
+
+
+    $scope.drawGraphforOperator = function (operator) {
+        $scope.selectedOperatorWiseAnalytics = "";
+        $scope.selectedOperator = operator;
+        $scope.error = "";
+        console.log($scope.selectedOperator, $scope.operatorData)
+        $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function (d) { if (d._id.OperatorName == operator) { return d } });
+        console.log($scope.selectedOperatorWiseAnalytics);
+        if ($scope.selectedOperatorWiseAnalytics.length) {
+            operatorAutomatedCharts($scope.selectedOperatorWiseAnalytics)
+        } else {
+            $scope.error = "No Data for Selected Operator"
+        }
+
+    }
+
 
 
     /* Chart Generating Function For Operator Wise Analytics */
 
     function operatorAutomatedCharts(operatorData) {
-
-        var yearlyChart = dc.compositeChart("#operatorDataLine");
-        /* var filterChart = dc.barChart('#operatorRangeChart'); */
-        var xMin = d3.min(operatorData, function (d) { return parseInt(new Date(d._id.BookedDate).getTime()) });
-        var xMax = d3.max(operatorData, function (d) { return parseInt(new Date(d._id.BookedDate).getTime()) });
+        var operatorChart = dc.compositeChart("#operatorDataLine");
+        var xMin = d3.min(operatorData, function (d) { return new Date(d._id.BookedDate).getTime() });
+        var xMax = d3.max(operatorData, function (d) { return new Date(d._id.BookedDate).getTime() });
         console.log(xMax, xMin)
         operatorData.forEach(function (d) {
             d.Month = new Date(d._id.BookedDate).getMonth();
         })
         var crossFilterData = crossfilter(operatorData);
         var groups = [];
-
-
-
-
-        /* var operatorDim = crossFilterData.dimension(function (d) { return d._id.OperatorName; });
-        var operatorsGroup = repetitionDim.group(); */
-
         var dateDimension = crossFilterData.dimension(function (d) { /* console.log(new Date(d.BookedDate)); */return new Date(d._id.BookedDate) });
         var operatorGroup = dateDimension.group().reduceSum(function (d) { /* console.log(d.TicketAmount); */return d.TicketAmount; });
-        for (var i = 0; i < 1; i++) {
-            groups.push(dc.lineChart(yearlyChart).group(operatorGroup, 'Operators').renderDataPoints(true).on('pretransition', function (chart) {
+        // for (var i = 0; i < 1; i++) {
+            groups.push(dc.lineChart(operatorChart).group(operatorGroup, 'Operators').renderDataPoints(true).on('pretransition', function (chart) {
                 chart.selectAll('circle.dot')
-                    .call(linetip)
-                    .on('mouseover', linetip.show)
-                    .on('mouseout', linetip.hide);
+                    .call(linetooltip)
+                    .on('mouseover', linetooltip.show)
+                    .on('mouseout', linetooltip.hide);
             }))
-        }
-        
+        // }
+
 
 
         /* filterChart
@@ -78,7 +80,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         filterChart.xAxis().ticks(30);
         filterChart.yAxis().ticks(0).outerTickSize(0); */
 
-        yearlyChart
+        operatorChart
             .width(850)
             .height(250)
             .margins({ top: 60, bottom: 60, left: 80, right: 40 })
@@ -97,17 +99,17 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
         /* Tooltip for the line charts in Composite chart */
-        var linetip = d3.tip()
+        var linetooltip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function (d) {
                 console.log('d', d);
-                return "Date: " + (d.data.key).toDateString() + '<br><br>' + "Value: " + d.data.value + '<br><br>' + "Group: " + d.layer;
+                //return "Date: " + (d.data.key).toDateString() + '<br><br>' + "Value: " + d.data.value + '<br><br>' + "Group: " + d.layer;
             });
 
 
 
-        dc.renderAll();
+            operatorChart.render();
     }
 
     $scope.logOut = function () {

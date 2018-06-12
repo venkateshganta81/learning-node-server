@@ -44,7 +44,7 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
             data: {activeTab: 'overview'}
         })
         .state('paymentGateway-data',{
-            url:'/sales-analytics',
+            url:'/payment-gateway',
             templateUrl: '/views/partials/user/payment-gateway.html',
             data: {activeTab: 'sales-data'}
         })
