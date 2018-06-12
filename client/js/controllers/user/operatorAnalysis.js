@@ -6,10 +6,9 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         UserServices.getOperatorWiseInventory(function (success) {
             if (success.data.status) {
                 $scope.operatorData = success.data.data;
-                $scope.selectedOperator = "2018-02-02";
-                $scope.drawGraphforOperator();
                 /* operatorAutomatedCharts($scope.operatorData); */
-                // console.log($scope.operatorData);
+                console.log($scope.operatorData);
+                $scope.drawGraphforOperator();
             } else {
 
             }
@@ -24,8 +23,11 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         console.log($scope.selectedOperator)
         console.log($scope.operatorData);
         $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function(d){ if(d._id.OperatorName === $scope.selectedOperator){return d}});
-        console.log($scope.selectedOperatorWiseAnalytics)
+        $scope.operatorNames = _.filter($scope.operatorData, function(d){ return d._id.OperatorName });
+        console.log($scope.operatorNames);
+        /* operatorAutomatedCharts($scope.selectedOperatorWiseAnalytics) */
     }
+    
 
 
     /* Chart Generating Function For Operator Wise Analytics */
@@ -46,26 +48,20 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
 
-        var repetitionDim = crossFilterData.dimension(function (d) { return d._id.OperatorName; });
-        var repetitionGroup = repetitionDim.group();
+        /* var operatorDim = crossFilterData.dimension(function (d) { return d._id.OperatorName; });
+        var operatorsGroup = repetitionDim.group(); */
 
         var dateDimension = crossFilterData.dimension(function (d) { /* console.log(new Date(d.BookedDate)); */return new Date(d._id.BookedDate) });
-        var salesGroup = dateDimension.group().reduceSum(function (d) { /* console.log(d.TicketAmount); */return d.TicketAmount; });
+        var operatorGroup = dateDimension.group().reduceSum(function (d) { /* console.log(d.TicketAmount); */return d.TicketAmount; });
         for (var i = 0; i < 1; i++) {
-            groups.push(dc.lineChart(yearlyChart).group(salesGroup, 'Sales').renderDataPoints(true).on('pretransition', function (chart) {
+            groups.push(dc.lineChart(yearlyChart).group(operatorGroup, 'Operators').renderDataPoints(true).on('pretransition', function (chart) {
                 chart.selectAll('circle.dot')
                     .call(linetip)
                     .on('mouseover', linetip.show)
                     .on('mouseout', linetip.hide);
             }))
         }
-        repetitionChart
-            .width(150)
-            .height(250)
-            .slicesCap(20)
-            .innerRadius(0)
-            .dimension(repetitionDim)
-            .group(repetitionGroup);
+        
 
 
         /* filterChart

@@ -156,11 +156,12 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
         }
         repetitionChart
             .width(150)
-            .height(250)
+            .height(125)
             .slicesCap(12)
             .innerRadius(0)
             .dimension(repetitionDim)
-            .group(repetitionGroup);
+            .group(repetitionGroup)
+            .legend(dc.legend().x(0).y(0).gap(5).horizontal(true));
 
 
         filterChart

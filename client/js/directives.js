@@ -7,7 +7,7 @@ function userMenu() {
 
 
         template: `
-        <nav class="side-navbar col-sm-3">
+        <nav class="side-navbar col-sm-2">
           <ul class="list-unstyled">
               <li class="active"><a href="#Analytics" aria-expanded="false" data-toggle="collapse"> <i class="linea-icon linea-basic fa-fw" data-icon="H"></i> Analytics </a>
                 <ul id="Analytics" class="list-unstyled ">

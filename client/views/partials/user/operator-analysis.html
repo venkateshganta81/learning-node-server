@@ -33,12 +33,12 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div style="display:flex">
-                                    <div class="col-sm-3">
+                                    <div>
                                         <div class="dataChartWrap">
                                             <div id="repeat">
-                                                <!-- <select class="form-control" ng-model="selectedOperator" ng-change="drawGraphforOperator();">
+                                                <!-- <select class="form-control"  ng-model="selectedOperator" ng-change="drawGraphforOperator();">
                                                     <option value="" selected disabled>Select Operator</option>
-                                                    <option ng-repeat="operator in operatorData">
+                                                    <option ng-repeat="operator in operatorData" ng-if="operatorData">
                                                         {{operator._id.OperatorName}}
                                                     </option>
                                                 </select> -->
@@ -46,8 +46,8 @@
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-9">
-                                        <div id="dataLine"></div>
+                                    <div class="col-sm-12">
+                                        <div id="operatorDataLine"></div>
                                         <div class="rangePos">
                                             <!-- <div class="rangetoolTip">Scroll Here
                                                 <div class="rangetoolTipTail"></div>
