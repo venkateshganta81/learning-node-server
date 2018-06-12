@@ -44,7 +44,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
     function operatorAutomatedCharts(operatorData) {
 
-        var yearlyChart = dc.compositeChart("#operatorDataLine");
+        var operatorChart = dc.compositeChart("#operatorDataLine");
         /* var filterChart = dc.barChart('#operatorRangeChart'); */
         var xMin = d3.min(operatorData, function (d) { return new Date(d._id.BookedDate).getTime() });
         var xMax = d3.max(operatorData, function (d) { return new Date(d._id.BookedDate).getTime() });
@@ -64,7 +64,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         var dateDimension = crossFilterData.dimension(function (d) { /* console.log(new Date(d.BookedDate)); */return new Date(d._id.BookedDate) });
         var operatorGroup = dateDimension.group().reduceSum(function (d) { /* console.log(d.TicketAmount); */return d.TicketAmount; });
         for (var i = 0; i < 1; i++) {
-            groups.push(dc.lineChart(yearlyChart).group(operatorGroup, 'Operators').renderDataPoints(true).on('pretransition', function (chart) {
+            groups.push(dc.lineChart(operatorChart).group(operatorGroup, 'Operators').renderDataPoints(true).on('pretransition', function (chart) {
                 chart.selectAll('circle.dot')
                     .call(linetip)
                     .on('mouseover', linetip.show)
@@ -88,7 +88,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         filterChart.xAxis().ticks(30);
         filterChart.yAxis().ticks(0).outerTickSize(0); */
 
-        yearlyChart
+        operatorChart
             .width(850)
             .height(250)
             .margins({ top: 60, bottom: 60, left: 80, right: 40 })
