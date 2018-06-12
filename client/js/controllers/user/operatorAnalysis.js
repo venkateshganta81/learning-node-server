@@ -1,8 +1,8 @@
 app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$document', '$cookies', 'UserServices', '$timeout', function ($scope, $rootScope, $state, $log, $document, $cookies, UserServices, $timeout) {
 
     /* Getting user details from db and checking expiry data */
-    $scope.selectedOperator = "select Operator";
-    
+    $scope.selectedOperator = "All Operators";
+
     $scope.getOperatorWiseInventory = function () {
         if ($cookies.get('token')) {
             UserServices.getOperatorWiseInventory(function (success) {
@@ -10,7 +10,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
                 if (success.data.status) {
                     $scope.operatorsNames = success.data.operators
                     $scope.operatorData = success.data.aggregatedData;
-                    console.log($scope.operatorsNames.length);
+                    $scope.drawGraphforOperator("all")
                 } else {
 
                 }
@@ -25,16 +25,20 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
     $scope.drawGraphforOperator = function (operator) {
-        $scope.selectedOperatorWiseAnalytics = "";
-        $scope.selectedOperator = operator;
-        $scope.error = "";
-        console.log($scope.selectedOperator, $scope.operatorData)
-        $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function (d) { if (d._id.OperatorName == operator) { return d } });
-        console.log($scope.selectedOperatorWiseAnalytics);
-        if ($scope.selectedOperatorWiseAnalytics.length) {
-            operatorAutomatedCharts($scope.selectedOperatorWiseAnalytics)
-        } else {
-            $scope.error = "No Data for Selected Operator"
+        if (operator = ! 'all') {
+            $scope.selectedOperatorWiseAnalytics = "";
+            $scope.selectedOperator = operator;
+            $scope.error = "";
+            console.log($scope.selectedOperator, $scope.operatorData)
+            $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function (d) { if (d._id.OperatorName == operator) { return d } });
+            console.log($scope.selectedOperatorWiseAnalytics);
+            if ($scope.selectedOperatorWiseAnalytics.length) {
+                operatorAutomatedCharts($scope.selectedOperatorWiseAnalytics)
+            } else {
+                $scope.error = "No Data for Selected Operator"
+            }
+        }else{
+            operatorAutomatedCharts($scope.operatorData);
         }
 
     }
@@ -56,12 +60,12 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         var dateDimension = crossFilterData.dimension(function (d) { /* console.log(new Date(d.BookedDate)); */return new Date(d._id.BookedDate) });
         var operatorGroup = dateDimension.group().reduceSum(function (d) { /* console.log(d.TicketAmount); */return d.TicketAmount; });
         // for (var i = 0; i < 1; i++) {
-            groups.push(dc.lineChart(operatorChart).group(operatorGroup, 'Operators').renderDataPoints(true).on('pretransition', function (chart) {
-                chart.selectAll('circle.dot')
-                    .call(linetooltip)
-                    .on('mouseover', linetooltip.show)
-                    .on('mouseout', linetooltip.hide);
-            }))
+        groups.push(dc.lineChart(operatorChart).group(operatorGroup, 'Operators').renderDataPoints(true).on('pretransition', function (chart) {
+            chart.selectAll('circle.dot')
+                .call(linetooltip)
+                .on('mouseover', linetooltip.show)
+                .on('mouseout', linetooltip.hide);
+        }))
         // }
 
 
@@ -109,7 +113,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
 
-            operatorChart.render();
+        operatorChart.render();
     }
 
     $scope.logOut = function () {
@@ -124,6 +128,8 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
     $scope.resetFilters = function () {
         dc.filterAll();
         dc.redrawAll();
+        $scope.selectedOperator = "All Operators";
+        $scope.drawGraphforOperator("all");
     }
 
 }]);
