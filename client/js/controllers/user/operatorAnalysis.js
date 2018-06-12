@@ -3,18 +3,22 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
     /* Getting user details from db and checking expiry data */
     $scope.selectedOperator = "select Operator";
     $scope.getOperatorWiseInventory = function () {
-        UserServices.getOperatorWiseInventory(function (success) {
-            console.log(success)
-            if (success.data.status) {
-                $scope.operatorsNames = success.data.operators
-                $scope.operatorData = success.data.aggregatedData;
-                console.log($scope.operatorsNames.length);
-            } else {
-
-            }
-        }, function (error) {
-
-        })
+        if($cookies.get('token')){
+            UserServices.getOperatorWiseInventory(function (success) {
+                console.log(success)
+                if (success.data.status) {
+                    $scope.operatorsNames = success.data.operators
+                    $scope.operatorData = success.data.aggregatedData;
+                    console.log($scope.operatorsNames.length);
+                } else {
+    
+                }
+            }, function (error) {
+    
+            }) 
+        }else{
+            $state.go('login');
+        }
     }
 
 
@@ -26,7 +30,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         console.log($scope.selectedOperator , $scope.operatorData)
         $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function(d){ if(d._id.OperatorName == operator){return d}});
         console.log($scope.selectedOperatorWiseAnalytics);
-        if($scope.selectedOperatorWiseAnalytics){
+        if($scope.selectedOperatorWiseAnalytics.length){
             operatorAutomatedCharts($scope.selectedOperatorWiseAnalytics)
         }else{
             $scope.error = "No Data for Selected Operator"
@@ -42,8 +46,8 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
         var yearlyChart = dc.compositeChart("#operatorDataLine");
         /* var filterChart = dc.barChart('#operatorRangeChart'); */
-        var xMin = d3.min(operatorData, function (d) { return parseInt(new Date(d._id.BookedDate).getTime()) });
-        var xMax = d3.max(operatorData, function (d) { return parseInt(new Date(d._id.BookedDate).getTime()) });
+        var xMin = d3.min(operatorData, function (d) { return new Date(d._id.BookedDate).getTime() });
+        var xMax = d3.max(operatorData, function (d) { return new Date(d._id.BookedDate).getTime() });
         console.log(xMax, xMin)
         operatorData.forEach(function (d) {
             d.Month = new Date(d._id.BookedDate).getMonth();

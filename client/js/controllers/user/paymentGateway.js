@@ -3,18 +3,23 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
     /* Getting user details from db and checking expiry data */
 
     $scope.getOperatorWiseInventory = function () {
-        UserServices.getOperatorWiseInventory(function (success) {
-            console.log(success);
-            if (success.data.status) {
-                $scope.operatorData = success.data.data;
-                operatorAutomatedCharts($scope.operatorData);
-                //console.log($rootScope.operatorData);
-            } else {
-
-            }
-        }, function (error) {
-
-        })
+        if($cookies.get('token')){
+            UserServices.getOperatorWiseInventory(function (success) {
+                console.log(success);
+                if (success.data.status) {
+                    $scope.operatorData = success.data.data;
+                    operatorAutomatedCharts($scope.operatorData);
+                    //console.log($rootScope.operatorData);
+                } else {
+    
+                }
+            }, function (error) {
+    
+            })
+        }else{
+            $state.go('login');
+        }
+       
     }
 
     $scope.getPaymentGateWayWiseInventory = function () {
