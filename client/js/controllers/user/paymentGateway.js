@@ -38,8 +38,7 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
 
 
         var repetitionDim = crossFilterData.dimension(function (d) { return d._id.PGType; });
-        var repetitionGroup = repetitionDim.group();
-
+       
         var dateDimension = crossFilterData.dimension(function (d) { /* console.log(new Date(d.BookedDate)); */return new Date(d._id.BookedDate) });
         var salesGroup = dateDimension.group().reduceSum(function (d) { /* console.log(d.TicketAmount); */return d.TicketAmount; });
         for (var i = 0; i < 1; i++) {
