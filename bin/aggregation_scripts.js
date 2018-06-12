@@ -22,10 +22,10 @@ db.inventories.createIndex({"BookedDate":1,"PGType":1})
  * Script to create aggregation of payment gateway collections by date
  */
 db.pgDateAggregation.remove({})
-db.inventories.aggregate([{$group: {_id: { PGType: "$PGType", BookedDate: "$BookedDate" },
-        count: { $sum: 1 },TicketAmount: { $sum: "$TicketAmount" }}}])
-        .forEach(function(data) {db.pgDateAggregation.insert(data)})
-
+db.inventories.aggregate([{ $match: {TicketAmount:{$ne :0} } },
+    {$group: {_id: { PGType: "$PGType", BookedDate: "$BookedDate" },
+            count: { $sum: 1 },TicketAmount: { $sum: "$TicketAmount" }}}])
+    .forEach(function(data) {db.pgDateAggregation.insert(data)})
 
 /**
  *  Script for reshuffling the data for Operatornames
