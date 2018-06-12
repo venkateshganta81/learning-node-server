@@ -25,3 +25,31 @@ db.pgDateAggregation.remove({})
 db.inventories.aggregate([{$group: {_id: { PGType: "$PGType", BookedDate: "$BookedDate" },
         count: { $sum: 1 },TicketAmount: { $sum: "$TicketAmount" }}}])
         .forEach(function(data) {db.pgDateAggregation.insert(data)})
+
+
+/**
+ *  Script for reshuffling the data for Operatornames
+ */
+
+db.inventories.find({"OperatorName":/.*201.*/}).forEach(function(data) {
+    db.inventories.update({
+        "_id": data._id
+    }, {
+        "$set": {
+            "Source" : data.Destination,
+            "Destination" : data.DOJ,
+            "DOJ" : data.OperatorName,
+            "OperatorName" : data.BusType,
+            "BusType" : data.ServiceType,
+            "ServiceType" : data.BoardingPoint,
+            "BoardingPoint" : data.BoardingTime,
+            "BoardingTime" : data.DroppingPoint,
+            "DroppingPoint" : data.DroppingTime,
+            "DroppingTime" : data.Email,
+            "Email" : data.Mobile,
+            "Mobile" : data.Age,
+            "Age" : data.Gender,
+            "Gender" : data.Insurance
+        }
+    });
+})
