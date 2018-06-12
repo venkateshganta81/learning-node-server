@@ -2,8 +2,9 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
     /* Getting user details from db and checking expiry data */
     $scope.selectedOperator = "select Operator";
+    
     $scope.getOperatorWiseInventory = function () {
-        if($cookies.get('token')){
+        if ($cookies.get('token')) {
             UserServices.getOperatorWiseInventory(function (success) {
                 console.log(success)
                 if (success.data.status) {
@@ -11,12 +12,12 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
                     $scope.operatorData = success.data.aggregatedData;
                     console.log($scope.operatorsNames.length);
                 } else {
-    
+
                 }
             }, function (error) {
-    
-            }) 
-        }else{
+
+            })
+        } else {
             $state.go('login');
         }
     }
@@ -24,28 +25,26 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
     $scope.drawGraphforOperator = function (operator) {
-        $scope.selectedOperatorWiseAnalytics="";
+        $scope.selectedOperatorWiseAnalytics = "";
         $scope.selectedOperator = operator;
         $scope.error = "";
-        console.log($scope.selectedOperator , $scope.operatorData)
-        $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function(d){ if(d._id.OperatorName == operator){return d}});
+        console.log($scope.selectedOperator, $scope.operatorData)
+        $scope.selectedOperatorWiseAnalytics = _.filter($scope.operatorData, function (d) { if (d._id.OperatorName == operator) { return d } });
         console.log($scope.selectedOperatorWiseAnalytics);
-        if($scope.selectedOperatorWiseAnalytics.length){
+        if ($scope.selectedOperatorWiseAnalytics.length) {
             operatorAutomatedCharts($scope.selectedOperatorWiseAnalytics)
-        }else{
+        } else {
             $scope.error = "No Data for Selected Operator"
         }
-        
+
     }
-    
+
 
 
     /* Chart Generating Function For Operator Wise Analytics */
 
     function operatorAutomatedCharts(operatorData) {
-
         var operatorChart = dc.compositeChart("#operatorDataLine");
-        /* var filterChart = dc.barChart('#operatorRangeChart'); */
         var xMin = d3.min(operatorData, function (d) { return new Date(d._id.BookedDate).getTime() });
         var xMax = d3.max(operatorData, function (d) { return new Date(d._id.BookedDate).getTime() });
         console.log(xMax, xMin)
@@ -54,24 +53,17 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         })
         var crossFilterData = crossfilter(operatorData);
         var groups = [];
-
-
-
-
-        /* var operatorDim = crossFilterData.dimension(function (d) { return d._id.OperatorName; });
-        var operatorsGroup = repetitionDim.group(); */
-
         var dateDimension = crossFilterData.dimension(function (d) { /* console.log(new Date(d.BookedDate)); */return new Date(d._id.BookedDate) });
         var operatorGroup = dateDimension.group().reduceSum(function (d) { /* console.log(d.TicketAmount); */return d.TicketAmount; });
-        for (var i = 0; i < 1; i++) {
+        // for (var i = 0; i < 1; i++) {
             groups.push(dc.lineChart(operatorChart).group(operatorGroup, 'Operators').renderDataPoints(true).on('pretransition', function (chart) {
                 chart.selectAll('circle.dot')
-                    .call(linetip)
-                    .on('mouseover', linetip.show)
-                    .on('mouseout', linetip.hide);
+                    .call(linetooltip)
+                    .on('mouseover', linetooltip.show)
+                    .on('mouseout', linetooltip.hide);
             }))
-        }
-        
+        // }
+
 
 
         /* filterChart
@@ -107,17 +99,17 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
         /* Tooltip for the line charts in Composite chart */
-        var linetip = d3.tip()
+        var linetooltip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function (d) {
                 console.log('d', d);
-                return "Date: " + (d.data.key).toDateString() + '<br><br>' + "Value: " + d.data.value + '<br><br>' + "Group: " + d.layer;
+                //return "Date: " + (d.data.key).toDateString() + '<br><br>' + "Value: " + d.data.value + '<br><br>' + "Group: " + d.layer;
             });
 
 
 
-        dc.renderAll();
+            operatorChart.render();
     }
 
     $scope.logOut = function () {
