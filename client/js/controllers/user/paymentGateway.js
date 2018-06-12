@@ -68,9 +68,9 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
             }))
         }
         repetitionChart
-            .width(250)
+            .width(150)
             .height(250)
-            .slicesCap(12)
+            .slicesCap(20)
             .innerRadius(0)
             .dimension(repetitionDim)
             .group(repetitionGroup);
@@ -124,8 +124,8 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
 
     function automatedCharts(userData) {
         console.log('userData',userData);
-        var repetitionChart = dc.pieChart('#repeat');
-        var yearlyChart = dc.compositeChart("#dataLine");
+        var repetitionChart = dc.pieChart('#paymentGateway');
+        var yearlyChart = dc.compositeChart("#salesLine");
         var filterChart = dc.barChart('#range-chart');
 
 
@@ -155,12 +155,13 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
             }))
         }
         repetitionChart
-            .width(250)
-            .height(250)
+            .width(150)
+            .height(125)
             .slicesCap(12)
             .innerRadius(0)
             .dimension(repetitionDim)
-            .group(repetitionGroup);
+            .group(repetitionGroup)
+            .legend(dc.legend().x(0).y(0).gap(5).horizontal(true));
 
 
         filterChart
@@ -174,7 +175,7 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
             .xUnits(d3.time.months);
 
 
-        filterChart.xAxis().ticks(30);
+        filterChart.xAxis().ticks(12);
         filterChart.yAxis().ticks(0).outerTickSize(0);
 
         yearlyChart
@@ -217,4 +218,11 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
         $rootScope.userLogin = false;
         $state.go('login');
     };
+
+
+    $scope.resetFilters = function(){
+        dc.filterAll(); 
+        dc.redrawAll();
+    }
+
 }]);

@@ -1,0 +1,98 @@
+<div class="dashboard-container" ng-controller="UserCtrl" ng-init="getPaymentGateWayWiseInventory();">
+<div class="page">
+      <header class="header">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <div class="navbar-header">
+                <a href="/dashboard" class="navbar-brand">
+                  <div class="brand-text brand-big"><img src="images/abhibus.png" width="40px" alt="" ></div>
+                  <div class="brand-text brand-small"><img src="images/abhibus.png" width="40px" alt="" ></div></a>
+              </div>
+              <ul class="nav-menu navbar navbar-right list-unstyled d-flex flex-md-row align-items-md-center">
+                <li class="nav-item dropdown">
+                    <!-- <button type="button" class="nav-link language dropdown-toggle dLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{selectedAnalysis || "Pick Analysis"}}</span>
+                        <span class="caret"></span>
+                    </button> -->
+                    <!-- <ul aria-labelledby="languages" class="dropdown-menu">
+                        <li ng-repeat="analysis in myData.analysisName">
+                            <a rel="nofollow" href="#" class="cursor" ng-click="loadAnalysis($index,analysis);"> {{analysis}}</a>
+                        </li>
+                    </ul> -->
+                </li>
+                <li class="nav-item"><a href="" ng-click="logOut()" class="nav-link">Logout <i class="fa fa-sign-out"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="page-content d-flex align-items-stretch"> 
+        <user-menu></user-menu>
+        <div class="content-inner col-sm-9">
+          <!--Payment Gateway Analytics-->
+          <section>
+            <div class="container-fluid">
+              <div class="row">
+                <h2>Payment Gateway</h2>
+                <div class="dashboard-wrapper">
+                    <div class="col-sm-12" ng-hide="message">
+                        <div class="pad-30">
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12">
+                                <a class="reset" ng-click="resetFilters();" href="#">Reset All</a>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div style="display:flex">
+                                <div class="col-sm-3">
+                                    <div class="dataChartWrap">
+                                        <div id="paymentGateway">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="salesLine"></div>
+                                    <div class="rangePos">
+                                    </div>
+                                    <div id="range-chart"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div> 
+
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- <script>
+$(document).ready(function () {
+    'use strict';
+    $('.side-navbar').addClass('shrinked'); // default menu close
+    $('[data-toggle="tooltip"]').tooltip(); // default tooltip
+    $('#toggle-btn').on('click', function (e) { // Sidebar Functionality
+        e.preventDefault();
+        $(this).toggleClass('active');
+        $('.side-navbar').toggleClass('shrinked');
+        $('.content-inner').toggleClass('active');
+        $(document).trigger('sidebarChanged');
+        if ($(window).outerWidth() > 1183) {
+            if ($('#toggle-btn').hasClass('active')) {
+                $('.navbar-header .brand-small').hide();
+                $('.navbar-header .brand-big').show();
+            } else {
+                $('.navbar-header .brand-small').hide();
+                $('.navbar-header .brand-big').show();
+            }
+        }
+        if ($(window).outerWidth() < 1183) {
+            $('.navbar-header .brand-small').show();
+        }
+    });
+});
+</script> -->
