@@ -116,6 +116,12 @@ OpenRouter.get("/getOperatorWiseInventory", function(req, res) {
   });
 });
 
+OpenRouter.get("/getOperatorBookings", function(req, res) {
+    operatorWiseInventory.getOperatorBookings(req.query.operatorName, function(result) {
+        res.json(result);
+    });
+});
+
 //Payment Gateway Wise
 OpenRouter.get("/getPaymentGateWayWiseInventory", function(req, res) {
   paymentGatewayWiseInventory.getPaymentGateWayWiseInventory(function(result) {
