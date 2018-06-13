@@ -27,6 +27,15 @@ db.inventories.aggregate([{ $match: {TicketAmount:{$ne :0} } },
             count: { $sum: 1 },TicketAmount: { $sum: "$TicketAmount" }}}])
     .forEach(function(data) {db.pgDateAggregation.insert(data)})
 
+
+
+db.operatorAggregation.remove({})
+
+db.inventories.aggregate([{ $match: {TicketAmount:{$ne :0} } },
+    {$group: {_id: { OperatorName: "$OperatorName", BookedDate: "$BookedDate" },
+            count:{$sum:1 },TicketAmount: { $sum: "$TicketAmount"}}}])
+    .forEach(function(data) {db.operatorAggregation.insert(data)})
+
 /**
  *  Script for reshuffling the data for Operatornames
  */
