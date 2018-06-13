@@ -11,7 +11,7 @@ function userMenu() {
           <ul class="list-unstyled">
               <li class="active"><a href="#Analytics" aria-expanded="false" data-toggle="collapse"> <i class="linea-icon linea-basic fa-fw" data-icon="H"></i> Analytics </a>
                 <ul id="Analytics" class="list-unstyled ">
-                  <li class="active"><a href="#salesAnalytics">Sales Analytics</a>
+                  <li class="active" ><a href="#salesAnalytics" aria-expanded="false" data-toggle="collapse"><i class="linea-icon linea-basic fa-fw" data-icon="H"></i>Sales Analytics</a>
                     <ul id="salesAnalytics">
                         <li ng-class="{'active': activeTab == 'paymentGateway-data'}"><a ui-sref="paymentGateway-data">Payment Gateway</a></li>
                         <li ng-class="{'active': activeTab == 'operator-data'}"><a ui-sref="operator-data" >Operator</a></li>
