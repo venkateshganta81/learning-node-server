@@ -35,7 +35,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         var crossFilterData = crossfilter(operatorData);
         var groups = [];
         var dateDimension = crossFilterData.dimension(function (d) { /* console.log(new Date(d.BookedDate)); */return [d.TicketAmount, d._id.OperatorName] });
-        var operatorGroup = dateDimension.group().reduceSum(function(d){ return d.TicketAmount; })
+        var operatorGroup = dateDimension.group().reduceSum(function (d) { return d.TicketAmount; })
         // for (var i = 0; i < 1; i++) {
         groups.push(dc.barChart(operatorChart).group(operatorGroup, 'Operators')
             .keyAccessor(function (d) {
@@ -45,6 +45,10 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
                 return d.key[0];
             })
             .controlsUseVisibility(true).on('pretransition', function (chart) {
+                chart.selectAll('rect.bar')
+                    .call(barToolTip)
+                    .on('mouseover', barToolTip.show)
+                    .on('mouseout', barToolTip.hide)
                 chart.selectAll("rect.bar").on("click", function (d) {
                     console.log('click', d);
                     $scope.selectedOperator = d.data.key[1];
@@ -78,6 +82,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
             .rangeChart(filterChart)
             .dimension(dateDimension)
             .renderHorizontalGridLines(true)
+            .renderTitle(false)
             .x(d3.scale.linear().domain([xMin, xMax]))
             .elasticY(true)
             .mouseZoomable(true)
@@ -86,11 +91,11 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
             .compose(groups)
             .xAxis();
 
-            d3.selectAll("rect.bar")
-            .attr("width",20);
+        d3.selectAll("rect.bar")
+            .attr("width", 20);
 
-            console.log(operatorChart.selectAll("rect.bar"));
-            
+        console.log(operatorChart.selectAll("rect.bar"));
+
         //yearlyChart.xUnits(d3.time.months);
 
 
@@ -147,6 +152,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
                 /* .rangeChart(filterChart) */
                 .dimension(dateDimension)
                 .renderHorizontalGridLines(true)
+                .renderTitle(false)
                 .x(d3.time.scale().domain([xMin, xMax]))
                 .elasticY(true)
                 .mouseZoomable(true)
@@ -166,8 +172,15 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function (d) {
-            console.log('d', d);
             return "Date: " + (d.data.key).toDateString() + '<br><br>' + "Value: " + d.data.value + '<br><br>' + "Group: " + d.layer;
+        });
+
+
+    var barToolTip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function (d) {
+            return "Operator Name: " + d.data.key[1] + '<br><br>' + "Value: " + d.data.key[0];
         });
 
     $scope.logOut = function () {

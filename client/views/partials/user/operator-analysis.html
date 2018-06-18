@@ -1,57 +1,3 @@
-<style>
-    text {
-        font-size: 11px;
-        pointer-events: none;
-    }
-
-    #rangeChart{
-        margin-top: -30px;
-    }
-    .dataChartWrap .dc-chart rect.bar {
-        stroke: none;
-        cursor: pointer;
-        width: 10px!important;
-    }
-
-
-    text.parent {
-        fill: #000;
-    }
-
-    circle {
-        fill: #ccc;
-        stroke: #999;
-        pointer-events: all;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    .node {
-        cursor: pointer;
-    }
-
-    .node:hover {
-        stroke: #000;
-        stroke-width: 1.5px;
-    }
-
-    .node--leaf {
-        fill: white;
-    }
-
-    .label {
-        font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
-        text-anchor: middle;
-        text-shadow: 0 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 -1px 0 #000;
-        color: #000;
-    }
-
-    circle.child {
-        /* pointer-events: none; */
-        fill: #fff;
-    }
-</style>
 <div class="dashboard-container" ng-controller="OperatorCtrl" ng-init="getOperatorWiseInventory();">
     <div class="page">
         <header class="header">
@@ -106,7 +52,7 @@
                                                 <div class="clearfix"></div>
                                             </div>
 
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-12" ng-if="selectedOperator">
                                                 <h4 class="text-center">{{selectedOperator}}</h4>
                                                 <button class="btn btn-primary" ng-click="automateChart('TicketAmount')">Ticket Amount</button>
                                                 <button class="btn btn-primary" ng-click="automateChart('bookings')">Bookings</button>

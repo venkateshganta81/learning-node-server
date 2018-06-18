@@ -82,6 +82,7 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
             .dimension(dateDimension)
             .renderHorizontalGridLines(true)
             .x(d3.time.scale().domain([xMin, xMax]))
+            .renderTitle(false)
             .elasticY(true)
             .mouseZoomable(true)
             .brushOn(false)

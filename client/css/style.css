@@ -4361,3 +4361,17 @@ a.mytooltip {
 .payment-pie-chart-wrapper{
   margin-top: 50px;
 }
+
+.dataChartWrap .dc-chart rect.bar {
+  stroke: none;
+  cursor: pointer;
+  width: 10px!important;
+}
+
+#rangeChart {
+  margin-top: -30px;
+}
+
+#rangeChart g.y {
+  display: none;
+}
