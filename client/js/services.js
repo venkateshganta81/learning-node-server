@@ -37,6 +37,13 @@ app.factory('UserServices', function ($http) {
                 url:'/common/getPaymentGateWayWiseInventory',
                 method:'GET'
             }).then(success,error);
+        },
+        getOperatorDetails : function(name,success,error){
+            console.log("ONAME",encodeURIComponent(name))
+            $http({
+                url:'/common/getOperatorBookings?operatorName='+ encodeURIComponent(name) ,
+                method : 'GET'
+            }).then(success,error);
         }
     };
 });

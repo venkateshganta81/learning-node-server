@@ -4357,3 +4357,7 @@ a.mytooltip {
     transform: rotate(360deg);
   }
 }
+
+.payment-pie-chart-wrapper{
+  margin-top: 50px;
+}

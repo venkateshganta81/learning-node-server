@@ -1,3 +1,57 @@
+<style>
+    text {
+        font-size: 11px;
+        pointer-events: none;
+    }
+
+    #rangeChart{
+        margin-top: -30px;
+    }
+    .dataChartWrap .dc-chart rect.bar {
+        stroke: none;
+        cursor: pointer;
+        width: 10px!important;
+    }
+
+
+    text.parent {
+        fill: #000;
+    }
+
+    circle {
+        fill: #ccc;
+        stroke: #999;
+        pointer-events: all;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .node {
+        cursor: pointer;
+    }
+
+    .node:hover {
+        stroke: #000;
+        stroke-width: 1.5px;
+    }
+
+    .node--leaf {
+        fill: white;
+    }
+
+    .label {
+        font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-anchor: middle;
+        text-shadow: 0 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 -1px 0 #000;
+        color: #000;
+    }
+
+    circle.child {
+        /* pointer-events: none; */
+        fill: #fff;
+    }
+</style>
 <div class="dashboard-container" ng-controller="OperatorCtrl" ng-init="getOperatorWiseInventory();">
     <div class="page">
         <header class="header">
@@ -41,28 +95,23 @@
                                             <a class="reset" ng-click="resetFilters();" href="#">Reset All</a>
                                         </div>
                                         <div class="clearfix"></div>
-                                        <div style="display:flex">
+                                        <div>
                                             <div>
                                                 <div class="dataChartWrap">
                                                     <div id="operatorDataChart">
-                                                        <!-- <div class="dropdown">
-                                                            <button class="btn btn-custom dropdown-toggle" type="button" id="operators" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                {{selectedOperator}}
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu operators-dropdown-menu" aria-labelledby="operators">
-                                                                <li ng-repeat="operator in operatorsNames">
-                                                                    <a href="#" ng-click="drawGraphforOperator(operator);">{{operator}}</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div> -->
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
+                                                <div id="rangeChart"></div>
+                                                <div class="clearfix"></div>
                                             </div>
+
                                             <div class="col-sm-12">
-        <!--                                         <div class="loader" ng-if="show"></div> -->
-                                                <div ng-if="!error" id="operatorDataLine"></div>
+                                                <h4 class="text-center">{{selectedOperator}}</h4>
+                                                <button class="btn btn-primary" ng-click="automateChart('TicketAmount')">Ticket Amount</button>
+                                                <button class="btn btn-primary" ng-click="automateChart('bookings')">Bookings</button>
+                                                <button class="btn btn-primary" ng-click="automateChart('seats')">Seats</button>
+                                                <div style="display: block" id="operatorDataLine"></div>
                                                 <div class="rangePos">
 
                                                 </div>

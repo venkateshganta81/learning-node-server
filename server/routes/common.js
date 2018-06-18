@@ -117,6 +117,7 @@ OpenRouter.get("/getOperatorWiseInventory", function(req, res) {
 });
 
 OpenRouter.get("/getOperatorBookings", function(req, res) {
+  console.log("OName",req.query.operatorName);
     operatorWiseInventory.getOperatorBookings(req.query.operatorName, function(result) {
         res.json(result);
     });
