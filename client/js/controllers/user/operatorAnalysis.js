@@ -143,7 +143,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
             operatorChart
                 .width(850)
                 .height(250)
-                .margins({ top: 60, bottom: 0, left: 80, right: 40 })
+                .margins({ top: 60, bottom: 30, left: 80, right: 40 })
                 /* .rangeChart(filterChart) */
                 .dimension(dateDimension)
                 .renderHorizontalGridLines(true)
