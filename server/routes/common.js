@@ -16,6 +16,7 @@ var Users = require("./../modules/users");
 var Inventory = require("./../modules/inventory");
 var operatorWiseInventory = require("./../modules/operatorWiseInventory");
 var paymentGatewayWiseInventory = require("./../modules/paymentGatewayWiseInventory");
+var routeAnalytics = require("./../modules/routeAnalytics");
 
 var InventoryColl = require("./../models/schemas").InventoryColl;
 
@@ -71,6 +72,26 @@ OpenRouter.get("/getPaymentGateWayWiseInventory", function(req, res) {
     res.json(result);
   });
 });
+
+AuthRouter.get("/routeWiseSalesTotal", function(req, res) {
+    routeAnalytics.routeWiseSalesTotal(function(result) {
+        res.json(result);
+    });
+});
+
+AuthRouter.get("/operatorSalesTotalByRoute", function(req, res) {
+    routeAnalytics.operatorSalesTotalByRoute(req.query.source, req.query.destination, function(result) {
+        res.json(result);
+    });
+});
+
+AuthRouter.get("/operatorSalesTotalByRouteByDate", function(req, res) {
+    routeAnalytics.operatorSalesTotalByRouteByDate(req.query.source, req.query.destination,req.query.operatorName, function(result) {
+        res.json(result);
+    });
+});
+
+
 
 module.exports = {
   AuthRouter: AuthRouter,

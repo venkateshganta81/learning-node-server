@@ -95,11 +95,41 @@ var operatorAggregation = mongoose.Schema({
     count: Number,
     TicketAmount: Number
 });
+
+
+var routeWiseSalesTotal = mongoose.Schema({
+    _id: Object,
+    count: Number,
+    seats: Number,
+    TicketAmount: Number
+});
+
+var operatorSalesTotalByRoute = mongoose.Schema({
+    _id: Object,
+    count: Number,
+    seats: Number,
+    TicketAmount: Number
+});
+
+
+var operatorSalesTotalByRouteByDate = mongoose.Schema({
+    _id: Object,
+    count: Number,
+    seats: Number,
+    TicketAmount: Number
+});
+
+
+
 var UsersColl = connect.model("users", userSchema);
 var InventoryColl = connect.model("inventories", inventorySchema, "inventories");
 var  operatorAggregation = connect.model("operatorAggregation", operatorAggregation, "operatorAggregation");
 
 var pgDateAggregation = connect.model("pgDateAggregation", pgDateAggregation, "pgDateAggregation");
+
+var routeWiseSalesTotal = connect.model("routeWiseSalesTotal", routeWiseSalesTotal, "routeWiseSalesTotal");
+var operatorSalesTotalByRoute = connect.model("operatorSalesTotalByRoute", operatorSalesTotalByRoute, "operatorSalesTotalByRoute");
+var operatorSalesTotalByRouteByDate = connect.model("operatorSalesTotalByRouteByDate", operatorSalesTotalByRouteByDate, "operatorSalesTotalByRouteByDate");
 
 module.exports = {
   UsersColl: UsersColl,
