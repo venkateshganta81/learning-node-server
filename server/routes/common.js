@@ -40,70 +40,12 @@ AuthRouter.post("/change-password", function(req, res) {
   });
 });
 
-AuthRouter.post("/addClient", multipartymiddleware, function(req, res) {
-  var files = Object.values(req.files.file);
-  Users.addClient(req.query, files, function(result) {
-    res.json(result);
-  });
-});
-
-AuthRouter.post("/addCustomizedFile", multipartymiddleware, function(req, res) {
-  /*    var files = Object.values(req.files.file); */
-  console.log(req.query, req.files.file);
-  Users.addCustomizedFile(req.query, req.files.file, function(result) {
-    res.json(result);
-  });
-});
-
-AuthRouter.post("/addMoreFile", multipartymiddleware, function(req, res) {
-  /*    var files = Object.values(req.files.file); */
-  Users.addMoreFiles(req.query, req.files.file, function(result) {
-    res.json(result);
-  });
-});
-
-AuthRouter.post("/addMoreAnalysis", multipartymiddleware, function(req, res) {
-  console.log(req.files.file);
-  Users.addMoreAnalysis(req.query, req.files.file, function(result) {
-    res.json(result);
-  });
-});
-
-AuthRouter.post("/saveMouseMovement", function(req, res) {
-  //console.log(req.body);
-  Users.saveMouseMovement(
-    req.body.id,
-    req.body.name,
-    req.body.mouseMovement,
-    req.body.mouseClicks,
-    req.body.image,
-    function(result) {
-      res.json(result);
-    }
-  );
-});
-
-OpenRouter.post("/data", function(req, res) {
-  console.log("External Data", req.body);
-});
-
 AuthRouter.get("/getUserDetails", function(req, res) {
   Users.getUserDetails(req.jwt.id, function(result) {
     res.json(result);
   });
 });
-AuthRouter.post("/saveDataIntoJsonFile", function(req, res) {
-  Users.saveDataIntoJsonFile(req.jwt.id, req.body, function(result) {
-    res.json(result);
-  });
-});
 
-AuthRouter.post("/addAnalysis", function(req, res) {
-  // console.log("-->Data",req.body);
-  Users.addAnalysis(req.body.id, req.body.data, function(result) {
-    res.json(result);
-  });
-});
 
 OpenRouter.get("/get-config", function(req, res) {
   res.json({ data: config });
@@ -117,6 +59,7 @@ OpenRouter.get("/getOperatorWiseInventory", function(req, res) {
 });
 
 OpenRouter.get("/getOperatorBookings", function(req, res) {
+  console.log("OName",req.query.operatorName);
     operatorWiseInventory.getOperatorBookings(req.query.operatorName, function(result) {
         res.json(result);
     });

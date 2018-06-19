@@ -1,7 +1,7 @@
 app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$document', '$cookies', 'UserServices', '$timeout', function ($scope, $rootScope, $state, $log, $document, $cookies, UserServices, $timeout) {
 
     /* Getting user details from db and checking expiry data */
-    $scope.selectedOperator = "";
+    $scope.selectedOperator = "All Operators";
     $scope.show = true;
     $scope.getOperatorWiseInventory = function () {
         if ($cookies.get('token')) {
@@ -24,102 +24,56 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
 
+
     /* Chart Generating Function For Operator Wise Analytics */
 
     function operatorAutomatedCharts(operatorData) {
-        var operatorChart = dc.compositeChart("#operatorDataChart");
-        var filterChart = dc.barChart("#rangeChart");
-        var xMin = d3.min(operatorData, function (d) { return d.TicketAmount });
-        var xMax = d3.max(operatorData, function (d) { return d.TicketAmount });
-        console.log(xMax, xMin);
-        var crossFilterData = crossfilter(operatorData);
-        var groups = [];
-        var dateDimension = crossFilterData.dimension(function (d) { /* console.log(new Date(d.BookedDate)); */return [d.TicketAmount, d._id.OperatorName] });
-        var operatorGroup = dateDimension.group().reduceSum(function (d) { return d.TicketAmount; })
-        // for (var i = 0; i < 1; i++) {
-        groups.push(dc.barChart(operatorChart).group(operatorGroup, 'Operators')
-            .keyAccessor(function (d) {
-                return d.key[0];
-            })
-            .valueAccessor(function (d) {
-                return d.key[0];
-            })
-            .controlsUseVisibility(true).on('pretransition', function (chart) {
-                chart.selectAll('rect.bar')
-                    .call(barToolTip)
-                    .on('mouseover', barToolTip.show)
-                    .on('mouseout', barToolTip.hide)
-                chart.selectAll("rect.bar").on("click", function (d) {
-                    console.log('click', d);
-                    $scope.selectedOperator = d.data.key[1];
-                    $scope.getOperatorDetails(d.data.key[1]);
-                });
-            }))
-        // }
+        var sortedOperatorData = _.sortBy(operatorData, 'TicketAmount');
+        console.log(sortedOperatorData);
+        var crossfilterData = crossfilter(sortedOperatorData);
+        var operatorDimesion = crossfilterData.dimension(function (d) { return d._id.OperatorName; })
+        var operatorGroup = operatorDimesion.group().reduceSum(function (d) { return d.TicketAmount; });
 
-
-
-        filterChart
-            .width(850)
-            .height(90)
-            .margins({ top: 0, bottom: 60, left: 80, right: 40 })
-            .dimension(dateDimension)
-            .group(operatorGroup)
-            .keyAccessor(function (d) {
-                return d.key[0];
-            })
-            .mouseZoomable(true)
-            .alwaysUseRounding(true)
-            .x(d3.scale.linear().domain([xMin, xMax]))
-            .elasticX(true);
-        filterChart.xAxis().ticks(10);
-        filterChart.yAxis().ticks(0).outerTickSize(0);
+        var operatorChart = dc.barChart("#operatorDataChart");
 
         operatorChart
-            .width(850)
-            .height(250)
-            .margins({ top: 60, bottom: 60, left: 80, right: 40 })
-            .rangeChart(filterChart)
-            .dimension(dateDimension)
-            .renderHorizontalGridLines(true)
-            .renderTitle(false)
-            .x(d3.scale.linear().domain([xMin, xMax]))
-            .elasticY(true)
-            .mouseZoomable(true)
-            .brushOn(false)
-            .clipPadding(100)
-            .compose(groups)
-            .xAxis();
-
-        d3.selectAll("rect.bar")
-            .attr("width", 20);
-
-        console.log(operatorChart.selectAll("rect.bar"));
-
-        //yearlyChart.xUnits(d3.time.months);
-
-
+            .width(68000)
+            .height(540)
+            .margins({ top: 60, bottom: 240, left: 80, right: 40 })
+            .x(d3.scale.ordinal())
+            .xUnits(dc.units.ordinal)
+            .xAxisPadding(10)
+            .centerBar(true)
+            .barPadding(0)
+            .yAxisLabel("Total Sale")
+            .dimension(operatorDimesion)
+            .group(operatorGroup)
+            .elasticX(true)
+            .on('pretransition', function (chart) {
+                chart.selectAll("rect.bar").on("click", function (d) {
+                    console.log('click');
+                    chart.filter(null)
+                        .filter(d.data.key)
+                        .redrawGroup();
+                    $scope.getOperatorDetails(d.x);
+                });
+            });;
 
 
-        $scope.show = false;
+        $scope.getOperatorDetails = function (operatorName) {
+            UserServices.getOperatorDetails(operatorName, function (success) {
+                console.log(success);
+                if (success.data.status) {
+                    $scope.selectedOperatorDetails = success.data.data;
+                    $scope.automateChart("TicketAmount");
+                }
+            }, function (error) {
+
+            })
+        }
+
         operatorChart.render();
-        filterChart.render();
     }
-
-    $scope.getOperatorDetails = function (operatorName) {
-        UserServices.getOperatorDetails(operatorName, function (success) {
-            console.log(success);
-            if (success.data.status) {
-                $scope.selectedOperatorDetails = success.data.data;
-                $scope.automateChart("TicketAmount");
-            }
-        }, function (error) {
-
-        })
-    }
-
-
-
 
     $scope.automateChart = function (type) {
         var operatorChart = dc.compositeChart("#operatorDataLine");
@@ -148,11 +102,10 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
             operatorChart
                 .width(850)
                 .height(250)
-                .margins({ top: 60, bottom: 30, left: 80, right: 40 })
+                .margins({ top: 60, bottom: 60, left: 80, right: 40 })
                 /* .rangeChart(filterChart) */
                 .dimension(dateDimension)
                 .renderHorizontalGridLines(true)
-                .renderTitle(false)
                 .x(d3.time.scale().domain([xMin, xMax]))
                 .elasticY(true)
                 .mouseZoomable(true)
@@ -172,15 +125,8 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function (d) {
+            console.log('d', d);
             return "Date: " + (d.data.key).toDateString() + '<br><br>' + "Value: " + d.data.value + '<br><br>' + "Group: " + d.layer;
-        });
-
-
-    var barToolTip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function (d) {
-            return "Operator Name: " + d.data.key[1] + '<br><br>' + "Value: " + d.data.key[0];
         });
 
     $scope.logOut = function () {

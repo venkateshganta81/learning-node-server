@@ -33,6 +33,7 @@
                         <div class="row">
                             <h2>Operator</h2>
                             <div class="dashboard-wrapper">
+                                <div ng-spinner-bar></div>
                                 <div class="col-sm-12" ng-hide="message">
                                     <div class="pad-30">
                                         <div class="clearfix"></div>
@@ -40,32 +41,24 @@
                                             <a class="reset" ng-click="resetFilters();" href="#">Reset All</a>
                                         </div>
                                         <div class="clearfix"></div>
-                                        <div style="display:flex">
+                                        <div>
                                             <div>
                                                 <div class="dataChartWrap">
-                                                    <div id="repeat">
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-custom dropdown-toggle" type="button" id="operators" data-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">
-                                                                {{selectedOperator}}
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu operators-dropdown-menu" aria-labelledby="operators">
-                                                                <li ng-repeat="operator in operatorsNames">
-                                                                    <a href="#" ng-click="drawGraphforOperator(operator);">{{operator}}</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                    <div id="operatorDataChart">
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
+                                                <div id="rangeChart"></div>
+                                                <div class="clearfix"></div>
                                             </div>
-                                            <div class="col-sm-12">
-                                                <div ng-if="!error" id="operatorDataLine"></div>
+
+                                            <div class="col-sm-12" ng-if="selectedOperator">
+                                                <h4 class="text-center">{{selectedOperator}}</h4>
+                                                <button class="btn btn-primary" ng-click="automateChart('TicketAmount')">Ticket Amount</button>
+                                                <button class="btn btn-primary" ng-click="automateChart('bookings')">Bookings</button>
+                                                <button class="btn btn-primary" ng-click="automateChart('seats')">Seats</button>
+                                                <div style="display: block" id="operatorDataLine"></div>
                                                 <div class="rangePos">
-                                                    <!-- <div class="rangetoolTip">Scroll Here
-                                                <div class="rangetoolTipTail"></div>
-                                            </div> -->
 
                                                 </div>
                                                 <div ng-if="error">
@@ -75,21 +68,6 @@
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
-                                        <!-- <div class="col-sm-2">
-                                    <div class="bubblePos">
-                                        <div class="bubbletoolTip">Click Any Bubbles
-                                            <div class="bubbletoolTipTail"></div>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                        <div class="col-sm-12">
-                                            <div id="bubble-Chart"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div ng-show="message" class="col-sm-12  pos-rel">
-                                    <div class="subs-message">
-                                        <h2>{{message}}</h2>
                                     </div>
                                 </div>
                             </div>

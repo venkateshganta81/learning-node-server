@@ -13,65 +13,15 @@ app.factory('CommonServices', function ($http) {
                 method: "POST",
                 data: data
             }).then(success, error);
-        },
-        addAnalysis:function(data,success,error){
-            $http({
-                url:"/common/addAnalysis",
-                method:"POST",
-                data:data
-            }).then(success,error);
-        },
-        dump : function(data,success,error){
-            $http({
-                
-            })
         }
     };
 });
 
 app.factory('AdminServices', function ($http) {
-    return {
-        getClientDetails: function(success,error){
-            $http({
-                url:'/admin/getClientDetails',
-                method:'GET'
-            }).then(success,error);
-        },
-        giveAccess:function(data,success,error){
-            $http({
-                url:'/admin/giveAccess',
-                method:'POST',
-                data:data
-            }).then(success,error);
-        },
-        createProfile:function(data,success,error){
-            $http({
-                url:'http://api.frrole.com/v4/user-profile/create?apikey=Sortinghat-EvoSJ70bxd9XJ5U0dxat59b6320711342&userid=' + data,
-                method:'POST'
-            }).then(success,error);
-        },
-        getInfluencerProfile:function(data,success,error){
-            $http({
-                url:' http://api.frrole.com/v4/user-profile?apikey=Sortinghat-EvoSJ70bxd9XJ5U0dxat59b6320711342&userid=' + data,
-                method:'GET'
-            }).then(success,error);
-        },
-        saveFrroleData:function(data,success,error){
-            $http({
-                url:'/admin/saveFrroleData',
-                method:'POST',
-                data:data
-            }).then(success,error);
-        },
-        saveDataIntoJsonFile:function(data,success,error){
-            $http({
-                url:'/admin/saveDataIntoJsonFile',
-                method:'POST',
-                data:data
-            }).then(success,error);
-        }
+    /* return {
+       
         
-    };
+    }; */
 });
 
 app.factory('UserServices', function ($http) {
@@ -88,12 +38,12 @@ app.factory('UserServices', function ($http) {
                 method:'GET'
             }).then(success,error);
         },
-        saveDataIntoJsonFile:function(data,success,error){
+        getOperatorDetails : function(name,success,error){
+            console.log("ONAME",encodeURIComponent(name))
             $http({
-                url:'/common/saveDataIntoJsonFile',
-                method:'POST',
-                data:data
-            }).then(success,error);       
+                url:'/common/getOperatorBookings?operatorName='+ encodeURIComponent(name) ,
+                method : 'GET'
+            }).then(success,error);
         }
     };
 });

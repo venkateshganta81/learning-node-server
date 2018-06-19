@@ -38,7 +38,7 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
 
 
         var repetitionDim = crossFilterData.dimension(function (d) { return d._id.PGType; });
-        var repetitionGroup = repetitionDim.group();
+        var repetitionGroup = repetitionDim.group().reduceSum(function(d){ return d.TicketAmount });
 
         var dateDimension = crossFilterData.dimension(function (d) { /* console.log(new Date(d.BookedDate)); */return new Date(d._id.BookedDate) });
         var salesGroup = dateDimension.group().reduceSum(function (d) { /* console.log(d.TicketAmount); */return d.TicketAmount; });
@@ -51,10 +51,9 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
             }))
         }
         repetitionChart
-            .width(150)
-            .height(125)
-            .slicesCap(12)
-            .innerRadius(0)
+            .width(225)
+            .height(225)
+            .innerRadius(30)
             .dimension(repetitionDim)
             .group(repetitionGroup);
 
@@ -76,13 +75,14 @@ app.controller('UserCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$log
         filterChart.yAxis().ticks(0).outerTickSize(0); */
 
         yearlyChart
-            .width(850)
-            .height(250)
+            .width(750)
+            .height(350)
             .margins({ top: 60, bottom: 60, left: 80, right: 40 })
             /* .rangeChart(filterChart) */
             .dimension(dateDimension)
             .renderHorizontalGridLines(true)
             .x(d3.time.scale().domain([xMin, xMax]))
+            .renderTitle(false)
             .elasticY(true)
             .mouseZoomable(true)
             .brushOn(false)

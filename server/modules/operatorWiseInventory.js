@@ -61,6 +61,7 @@ operatorWiseInventory.prototype.getOperatorWiseInventory = function (callback) {
 
 operatorWiseInventory.prototype.getOperatorBookings = function (operatorName, callback) {
     var retObj = {};
+    console.log(operatorName);
     operatorAggregation.find({"_id.OperatorName": operatorName}).exec(
         function (err, operatorTransactions) {
             if (err) {

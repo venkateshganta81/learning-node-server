@@ -19,16 +19,3 @@ module.exports = {
     url: "mongodb://localhost/abhibus"
 };
 
-/* module.exports = {
-    url: "mongodb://localhost/hats-ai",
-    user: 'hatsai',
-    password: 'hatsai@123#MTW>81'
-}; */
-
-/* 
-db.createUser(
-    {
-        user: "hatsai",
-        pwd: "hatsai@123#MTW>81",
-        roles: [ { role: "dbOwner", db: "hats-ai" } ]
-    }) */
