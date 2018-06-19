@@ -161,7 +161,8 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
                 .compose(groups)
                 .xAxis();
 
-            operatorChart.render()
+            operatorChart.render();
+            dc.redrawAll();
         } else {
             $scope.error = "Nothing Selected";
         }
