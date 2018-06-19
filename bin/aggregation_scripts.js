@@ -65,8 +65,26 @@ db.inventories.find({"OperatorName":/.*201.*/}).forEach(function(data) {
     });
 })
 
+db.routeWiseSalesTotal.remove({})
 
+db.inventories.createIndex({"Source":1,"Destination":1})
 db.inventories.aggregate([
-    {$group: {_id: { OperatorName: "$OperatorName", BookedDate: "$BookedDate" },
-            count:{$sum:1 },TicketAmount: { $sum: "$TicketAmount"}}}])
-    .forEach(function(data) {db.operatorAggregation.insert(data)})
+    {$group: {_id: { Source: "$Source", Destination: "$Destination" },
+            count:{$sum:1 }, seats:{$sum:"$No_Of_Seats"},TicketAmount: { $sum: "$TicketAmount"}}}])
+    .forEach(function(data) {db.routeWiseSalesTotal.insert(data)})
+
+db.operatorSalesTotalByRoute.remove({})
+db.inventories.aggregate([
+    {$group: {_id: { Source: "$Source", Destination: "$Destination",OperatorName:"$OperatorName" },
+            count:{$sum:1 }, seats:{$sum:"$No_Of_Seats"},TicketAmount: { $sum: "$TicketAmount"}}}])
+    .forEach(function(data) {db.operatorSalesTotalByRoute.insert(data)})
+
+db.operatorSalesTotalByRoute.createIndex({"_id.Source":1, "_id.Destination":1})
+
+db.operatorSalesTotalByRouteByDate.remove({})
+db.inventories.aggregate([
+    {$group: {_id: { Source: "$Source", Destination: "$Destination",OperatorName:"$OperatorName", BookedDate:"$BookedDate"},
+            count:{$sum:1 }, seats:{$sum:"$No_Of_Seats"},TicketAmount: { $sum: "$TicketAmount"}}}],{allowDiskUse:true})
+    .forEach(function(data) {db.operatorSalesTotalByRouteByDate.insert(data)})
+
+db.operatorSalesTotalByRouteByDate.createIndex({"_id.Source":1, "_id.Destination":1, "_id.OperatorName":1})
