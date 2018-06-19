@@ -34,7 +34,7 @@ db.operatorAggregation.remove({})
 
 db.inventories.aggregate([{ $match: {TicketAmount:{$ne :0} } },
     {$group: {_id: { OperatorName: "$OperatorName", BookedDate: "$BookedDate" },
-            count:{$sum:1 },TicketAmount: { $sum: "$TicketAmount"}}}])
+            count:{$sum:1 },seats:{$sum:"$No_Of_Seats" },TicketAmount: { $sum: "$TicketAmount"}}}])
     .forEach(function(data) {db.operatorAggregation.insert(data)})
 
 /**
