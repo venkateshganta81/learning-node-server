@@ -135,5 +135,8 @@ module.exports = {
   UsersColl: UsersColl,
   InventoryColl: InventoryColl,
   pgDateAggregation:pgDateAggregation,
-  operatorAggregation:operatorAggregation
+  operatorAggregation:operatorAggregation,
+  routeWiseSalesTotal : routeWiseSalesTotal,
+  operatorSalesTotalByRoute : operatorSalesTotalByRoute ,
+  operatorSalesTotalByRouteByDate : operatorSalesTotalByRouteByDate
 };

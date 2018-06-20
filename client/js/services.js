@@ -46,8 +46,15 @@ app.factory('UserServices', function ($http) {
         },
         getRoutewiseInventory : function(success,error){
             $http({
-                url : "/common/",
+                url : "/common/routeWiseSalesTotal",
                 method: 'GET',
+            }).then(success,error);
+        },
+        getRouteWiseDetails : function(data,success,error){
+            $http({
+                url:"/common/operatorSalesTotalByRoute",
+                method : "GET",
+                params : data
             }).then(success,error);
         }
     };

@@ -30,6 +30,8 @@ app.use(function (req, res, next) {
     }
 });
 
+
+
 app.use(function (req, res, next) {
     console.log('mid--->',req.url);
     if (/\.(html|js|jpeg|jpg|png|ioc|pdf)/.test(req.url)) {
