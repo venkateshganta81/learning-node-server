@@ -80,6 +80,7 @@ AuthRouter.get("/routeWiseSalesTotal", function(req, res) {
 });
 
 AuthRouter.get("/operatorSalesTotalByRoute", function(req, res) {
+  console.log(req.query)
     routeAnalytics.operatorSalesTotalByRoute(req.query.source, req.query.destination, function(result) {
         res.json(result);
     });

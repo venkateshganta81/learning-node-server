@@ -31,7 +31,10 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', functio
             url:'/operator-analytics',
             templateUrl: '/views/partials/user/operator-analysis.html'
         })
-        
+        .state('route-wise-analysis',{
+            url: '/routewise-analytics',
+            templateUrl : '/views/partials/user/routewise-analysis.html'
+        })
 }]);
 
 

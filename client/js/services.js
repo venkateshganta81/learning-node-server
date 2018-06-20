@@ -39,10 +39,22 @@ app.factory('UserServices', function ($http) {
             }).then(success,error);
         },
         getOperatorDetails : function(name,success,error){
-            console.log("ONAME",encodeURIComponent(name))
             $http({
                 url:'/common/getOperatorBookings?operatorName='+ encodeURIComponent(name) ,
                 method : 'GET'
+            }).then(success,error);
+        },
+        getRoutewiseInventory : function(success,error){
+            $http({
+                url : "/common/routeWiseSalesTotal",
+                method: 'GET',
+            }).then(success,error);
+        },
+        getRouteWiseDetails : function(data,success,error){
+            $http({
+                url:"/common/operatorSalesTotalByRoute",
+                method : "GET",
+                params : data
             }).then(success,error);
         }
     };
