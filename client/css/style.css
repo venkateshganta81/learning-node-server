@@ -4375,3 +4375,17 @@ a.mytooltip {
 #rangeChart g.y {
   display: none;
 }
+
+.dataChartWrap .dc-chart rect.bar {
+  stroke: none;
+  cursor: pointer;
+  width: 10px!important;
+}
+
+#routeWiseRangeChart {
+  margin-top: -30px;
+}
+
+#routeWiseRangeChart g.y {
+  display: none;
+}

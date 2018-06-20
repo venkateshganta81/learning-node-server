@@ -56,6 +56,13 @@ app.factory('UserServices', function ($http) {
                 method : "GET",
                 params : data
             }).then(success,error);
+        },
+        getOperatorWiseSalesTotalByRoutWise : function(data,success,error){
+            $http({
+                url:"/common/operatorSalesTotalByRouteByDate",
+                method : "GET",
+                params : data
+            }).then(success,error);
         }
     };
 });
