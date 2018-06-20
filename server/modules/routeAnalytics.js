@@ -59,7 +59,7 @@ routeAnalytics.prototype.operatorSalesTotalByRoute = function (source,destinatio
 
 routeAnalytics.prototype.operatorSalesTotalByRouteByDate = function (source,destination,operatorName, callback) {
     var retObj = {};
-    operatorSalesTotalByRoute.find({"_id.Source":source, "_id.Destination":destination,"_id.OperatorName":operatorName}).exec(
+    operatorSalesTotalByRouteByDate.find({"_id.Source":source, "_id.Destination":destination,"_id.OperatorName":operatorName}).exec(
         function (err, operatorTotalByRoute) {
             if (err) {
                 retObj.status = false;
