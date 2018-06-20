@@ -122,6 +122,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
 
 
     $scope.automateChart = function (type) {
+        console.log($scope.selectedOperatorDetails)
         var operatorChart = dc.compositeChart("#operatorDataLine");
         var xMin = d3.min($scope.selectedOperatorDetails, function (d) { return new Date(d._id.BookedDate).getTime() });
         var xMax = d3.max($scope.selectedOperatorDetails, function (d) { return new Date(d._id.BookedDate).getTime() });
@@ -131,7 +132,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
         if (type == "seats") {
             dataTypeGroup = dateDimension.group().reduceSum(function (d) { return d.seats });
         } else if (type == "bookings") {
-            dataTypeGroup = dateDimension.group().reduceSum(function (d) { return d.bookings });
+            dataTypeGroup = dateDimension.group().reduceSum(function (d) { return d.count });
         } else if (type == "TicketAmount") {
             dataTypeGroup = dateDimension.group().reduceSum(function (d) { return d.TicketAmount });
         } else {
