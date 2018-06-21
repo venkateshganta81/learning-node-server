@@ -17,7 +17,7 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
 
     $scope.getRoutewiseInventory();
 
-        /* Rendering Scatter Plot  */
+    /* Rendering Scatter Plot  */
     $scope.drawRoutewiseChart = function () {
         var routeWiseChart = dc.seriesChart("#routeWiseChart");
         var routewiseCrossFilterData = crossfilter($scope.routeWiseData);
@@ -68,7 +68,7 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
         });
         routeWiseChart.render();
     }
-
+    $scope.routeWiseSelectedOperator = [];
     $scope.routeWiseOperatorChart = function () {
         console.log($scope.operatorDataRoteWise)
         var operatorChart = dc.compositeChart("#operatorSalesRouteWise");
@@ -95,8 +95,8 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
                     .on('mouseout', barToolTip.hide)
                 chart.selectAll("rect.bar").on("click", function (d) {
                     console.log('click', d);
-                    $scope.routeWiseSelectedOperator = d.data.key[1];
-                    $scope.getRouteWiseSelectedOperator(d.data.key[1],d.data.key[2],d.data.key[3]);
+                    $scope.routeWiseSelectedOperator.push(d.data.key[1]);
+                    $scope.getRouteWiseSelectedOperator(d.data.key[1], d.data.key[2], d.data.key[3]);
                 });
             }))
 
@@ -139,11 +139,11 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
         //yearlyChart.xUnits(d3.time.months);
 
         var barToolTip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function (d) {
-            return "Operator Name: " + d.data.key[1] + '<br><br>' + "Value: " + d.data.key[0] + '<br><br>' + "Route: " + d.data.key[2] + '-' + d.data.key[3];
-        });
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function (d) {
+                return "Operator Name: " + d.data.key[1] + '<br><br>' + "Value: " + d.data.key[0] + '<br><br>' + "Route: " + d.data.key[2] + '-' + d.data.key[3];
+            });
 
 
         $scope.show = false;
@@ -152,16 +152,101 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
 
     }
 
+    $scope.routeWiseOperatorDetails = [];
+    $scope.getRouteWiseSelectedOperator = function (operatorName, source, destination) {
+        UserServices.getOperatorWiseSalesTotalByRoutWise({ source: source, destination: destination, operatorName: operatorName }, function (success) {
+            if (success.data.status) {
+                $scope.routeWiseOperatorDetails.push(success.data.data);
+                console.log($scope.routeWiseOperatorDetails)
+                if($scope.routeWiseOperatorDetails.length<3){
+                    $scope.typeSelection = "TicketAmount"
+                    $scope.renderRouteWiseOperatorChart("TicketAmount");
+                }else{
 
-    $scope.getRouteWiseSelectedOperator = function(operatorName , source, destination){
-        UserServices.getOperatorWiseSalesTotalByRoutWise ({source:source , destination:destination , operatorName:operatorName},function(success){
-            console.log(success);
-        },function(error){
+                }
+            }
+        }, function (error) {
 
         })
     }
 
-    
+    $scope.groups = [];
+    var xMin = [];
+    var xMax = [];
+    var dateDimension = [];
+    var operatorCorssFilterData = [];
+    $scope.renderRouteWiseOperatorChart = function (type) {
+        var operatorRouteWiseChart = dc.compositeChart("#routeWiseOperatorDetails");
+        var customizedRouteWiseOperatorDetails = [];
+        $scope.routeWiseOperatorDetails.forEach((x) => {
+            xMin.push(d3.min(x, function (d) { return new Date(d._id.BookedDate).getTime() }))
+            xMax.push(d3.max(x, function (d) { return new Date(d._id.BookedDate).getTime() }))
+        });
+        $scope.xTotalMin = d3.min(xMin, function (d) { return d; });
+        $scope.xTotalMax = d3.min(xMax, function (d) { return d; });
+        
+        for(var i=0 ; i < $scope.routeWiseSelectedOperator.length ; i++ ){
+            operatorCorssFilterData[i] = crossfilter($scope.routeWiseOperatorDetails[i]);
+            dateDimension[i] = operatorCorssFilterData[i].dimension(function (d) { return new Date(d._id.BookedDate) });
+        }
+        var dataTypeGroup = [];
+        var key = 0;
+        if (type) {
+            xMin.forEach(function (x) {
+                function grouping(key) {
+                    dataTypeGroup[key] = dateDimension[key].group().reduceSum(function (d) {
+                        console.log(d);
+                        return d[type];
+                    });
+                }
+                if (key < $scope.routeWiseSelectedOperator.length) {
+                    grouping(key++);
+                }
+            })
+        }
+        if (dataTypeGroup.length) {
+            for (var i = 0; i < dataTypeGroup.length; i++) {
+                $scope.groups[i]=dc.lineChart(operatorRouteWiseChart).group(dataTypeGroup[i], $scope.routeWiseSelectedOperator[i]).renderDataPoints(true).on('pretransition', function (chart) {
+                    chart.selectAll('circle.dot')
+                        .call(linetooltip)
+                        .on('mouseover', linetooltip.show)
+                        .on('mouseout', linetooltip.hide);
+                })
+            }
+            operatorRouteWiseChart
+                .width(850)
+                .height(350)
+                .margins({ top: 60, bottom: 30, left: 80, right: 40 })
+                /* .rangeChart(filterChart) */
+                .dimension(dateDimension)
+                .renderHorizontalGridLines(true)
+                .renderTitle(false)
+                .x(d3.time.scale().domain([$scope.xTotalMin, $scope.xTotalMax]))
+                .elasticY(true)
+                .mouseZoomable(true)
+                .brushOn(false)
+                .clipPadding(100)
+                .compose($scope.groups)
+                .xAxis();
+
+        } else {
+            $scope.error = "Nothing Selected";
+        }
+
+        var linetooltip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function (d) {
+                return "Date: " + (d.data.key).toDateString() + '<br><br>' + "Value: " + d.data.value + '<br><br>' + "OperatorName: " + d.layer;
+            });
+
+
+        operatorRouteWiseChart.render();
+        dc.filterAll();
+        dc.redrawAll();
+    }
+
+
 
     $scope.logOut = function () {
         var cookies = $cookies.getAll();

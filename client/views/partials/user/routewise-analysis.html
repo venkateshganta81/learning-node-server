@@ -53,10 +53,6 @@
                                             </div>
 
                                             <div class="col-sm-12 dataChartWrap">
-                                                <!-- <h4 class="text-center">{{selectedOperator}}</h4>
-                                                <button class="btn btn-primary" ng-click="automateChart('TicketAmount')">Ticket Amount</button>
-                                                <button class="btn btn-primary" ng-click="automateChart('bookings')">Bookings</button>
-                                                <button class="btn btn-primary" ng-click="automateChart('seats')">Seats</button> -->
                                                 <div style="display: block" id="operatorSalesRouteWise"></div>
                                                 
                                                 <div class="rangePos">
@@ -68,6 +64,13 @@
                                             </div>
                                             <div id="routeWiseRangeChart">
 
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div id="routeWiseOperatorDetails">
+                                                <h4 class="text-center" ng-if="routeWiseSelectedOperator.length">{{routeWiseSelectedOperator}}</h4>
+                                                <button class="btn btn-primary" ng-click="renderRouteWiseOperatorChart('TicketAmount')">Ticket Amount</button>
+                                                <button class="btn btn-primary" ng-click="renderRouteWiseOperatorChart('count')">Bookings</button>
+                                                <button class="btn btn-primary" ng-click="renderRouteWiseOperatorChart('seats')">Seats</button>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>

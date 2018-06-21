@@ -107,6 +107,7 @@ app.controller('OperatorCtrl', ['$scope', '$rootScope', '$state', '$log', '$docu
     }
 
     $scope.getOperatorDetails = function (operatorName) {
+        $scope.routeWiseSelectedOperator = operatorName;
         UserServices.getOperatorDetails(operatorName, function (success) {
             console.log(success);
             if (success.data.status) {
