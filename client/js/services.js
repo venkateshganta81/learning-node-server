@@ -63,6 +63,12 @@ app.factory('UserServices', function ($http) {
                 method : "GET",
                 params : data
             }).then(success,error);
+        },
+        getDiscountwiseSales : function(success,error){
+            $http({
+                url:"/common/",
+                method: "GET"
+            }).then(success,error);
         }
     };
 });
