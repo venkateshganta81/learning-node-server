@@ -15,7 +15,12 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
         })
     }
 
-    $scope.getRoutewiseInventory();
+    $scope.groups = [];
+    var xMin = [];
+    var xMax = [];
+    var dateDimension = [];
+    var operatorCorssFilterData = [];
+    $scope.routeWiseOperatorDetails = [];
 
     /* Rendering Scatter Plot  */
     $scope.drawRoutewiseChart = function () {
@@ -58,6 +63,8 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
                     UserServices.getRouteWiseDetails({ source: d.key[0].Source, destination: d.key[0].Destination }, function (success) {
                         if (success.data.status) {
                             $scope.operatorDataRoteWise = success.data.data;
+                            $scope.routeWiseOperatorDetails = [];
+                            $scope.error = "Nothing Selected";
                             $scope.routeWiseOperatorChart();
 
                         }
@@ -152,16 +159,15 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
 
     }
 
-    $scope.routeWiseOperatorDetails = [];
+    
     $scope.getRouteWiseSelectedOperator = function (operatorName, source, destination) {
         UserServices.getOperatorWiseSalesTotalByRoutWise({ source: source, destination: destination, operatorName: operatorName }, function (success) {
             if (success.data.status) {
-                $scope.routeWiseOperatorDetails.push(success.data.data);
-                console.log($scope.routeWiseOperatorDetails)
-                if($scope.routeWiseOperatorDetails.length<3){
+                if ($scope.routeWiseOperatorDetails.length <= 3) {
+                    $scope.routeWiseOperatorDetails.push(success.data.data);
                     $scope.typeSelection = "TicketAmount"
                     $scope.renderRouteWiseOperatorChart("TicketAmount");
-                }else{
+                } else {
 
                 }
             }
@@ -170,12 +176,9 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
         })
     }
 
-    $scope.groups = [];
-    var xMin = [];
-    var xMax = [];
-    var dateDimension = [];
-    var operatorCorssFilterData = [];
+
     $scope.renderRouteWiseOperatorChart = function (type) {
+        $scope.error = "";
         var operatorRouteWiseChart = dc.compositeChart("#routeWiseOperatorDetails");
         var customizedRouteWiseOperatorDetails = [];
         $scope.routeWiseOperatorDetails.forEach((x) => {
@@ -184,8 +187,8 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
         });
         $scope.xTotalMin = d3.min(xMin, function (d) { return d; });
         $scope.xTotalMax = d3.min(xMax, function (d) { return d; });
-        
-        for(var i=0 ; i < $scope.routeWiseSelectedOperator.length ; i++ ){
+
+        for (var i = 0; i < $scope.routeWiseSelectedOperator.length; i++) {
             operatorCorssFilterData[i] = crossfilter($scope.routeWiseOperatorDetails[i]);
             dateDimension[i] = operatorCorssFilterData[i].dimension(function (d) { return new Date(d._id.BookedDate) });
         }
@@ -206,19 +209,19 @@ app.controller('RouteCtrl', ['$scope', '$rootScope', '$state', '$uibModal', '$lo
         }
         if (dataTypeGroup.length) {
             for (var i = 0; i < dataTypeGroup.length; i++) {
-                $scope.groups[i]=dc.lineChart(operatorRouteWiseChart).group(dataTypeGroup[i], $scope.routeWiseSelectedOperator[i]).renderDataPoints(true).on('pretransition', function (chart) {
+                $scope.groups[i] = dc.lineChart(operatorRouteWiseChart).group(dataTypeGroup[i], $scope.routeWiseSelectedOperator[i]).renderDataPoints(true).on('pretransition', function (chart) {
                     chart.selectAll('circle.dot')
                         .call(linetooltip)
                         .on('mouseover', linetooltip.show)
                         .on('mouseout', linetooltip.hide);
-                })
+                }).interpolate('monotone')
             }
             operatorRouteWiseChart
-                .width(850)
-                .height(350)
+                .width(950)
+                .height(250)
                 .margins({ top: 60, bottom: 30, left: 80, right: 40 })
                 /* .rangeChart(filterChart) */
-                .dimension(dateDimension)
+                .dimension(dateDimension[0])
                 .renderHorizontalGridLines(true)
                 .renderTitle(false)
                 .x(d3.time.scale().domain([$scope.xTotalMin, $scope.xTotalMax]))

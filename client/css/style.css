@@ -49,14 +49,10 @@ canvas {
   overflow-y: auto;
 }
 
-.container-fluid {
-  padding: 0 30px;
-}
+
 
 @media (max-width: 575px) {
-  .container-fluid {
-    padding: 0 15px;
-  }
+  
 }
 
 header.page-header {
@@ -4388,4 +4384,8 @@ a.mytooltip {
 
 #routeWiseRangeChart g.y {
   display: none;
+}
+
+circle.dot{
+  r : 2 !important;
 }
