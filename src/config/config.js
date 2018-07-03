@@ -2,7 +2,7 @@ module.exports = {
     port: 3500,
     bodyParserLimit: '50MB',
     jwt: {
-        secret: "GMI#123@MTW$456token",
+        secret: "123@MTW$456token",
         options: { expiresIn: 365 * 60 * 60 * 24 } // 365 days
     },
     dbConfig: {
