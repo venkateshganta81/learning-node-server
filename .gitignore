@@ -1,6 +1,7 @@
-/bower_components/
-/.idea/
-/package-lock.json
-/npm-debug.log
-/node_modules/
-/client/components/
+node_modules
+npm-debug.log
+yarn-error.log
+client/components
+.idea
+.DS_Store
+#client/images/backend

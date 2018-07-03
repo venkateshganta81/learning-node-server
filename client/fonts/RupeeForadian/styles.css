@@ -1,8 +1,0 @@
-@font-face {
-  font-family: 'RupeeForadian';
-  src:  url('../fonts/RupeeForadian/RupeeForadian.woff') format('woff'),
-	  	url('../fonts/RupeeForadian/RupeeForadian.ttf') format('truetype'),
-	  	url('../fonts/RupeeForadian/RupeeForadian.svg#RupeeForadian') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
