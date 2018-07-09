@@ -127,5 +127,25 @@ User.prototype.addExperience = function(id, details,callback){
     })
 }
 
+
+User.prototype.getExperience = function(id,callback){
+    userCollection.findOneAndUpdate({_id:id},function(err,data){
+        if (err) {
+            retObj.status = false;
+            retObj.message = 'Error while fetching experience';
+            callback(retObj);
+        } else {
+            retObj.status = true;
+            retObj.message = 'Successfully added Experience';
+            retObj.data = data;
+            delete userData.password;
+            callback(retObj);
+        }
+    })
+}
+
+
+
+
 module.exports = new User();
 

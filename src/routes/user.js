@@ -28,6 +28,12 @@ commonRouter.post('/addExperience',function(req,res){
     })
 })
 
+commonRouter.get('/getExperience',function(req,res){
+    userClass.getExperience(req.params.id,function(resp){
+        res.json(resp);
+    })
+})
+
 
 
 
