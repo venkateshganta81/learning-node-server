@@ -21,7 +21,8 @@ var userSchema = new mongoose.Schema(
     email: { type: String, unique: true },
     password: String,
     phone: Number,
-    name: String
+    name: String,
+    experience : []
   },
   {
     timestamps: true,

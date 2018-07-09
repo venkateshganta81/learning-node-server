@@ -46,8 +46,6 @@ app.use((req, res, next) => {
 app.use('/v1/user', userRoutes.commonRouter);
 app.use(authMiddleWare)
 app.use('/v1/common',commonRoutes.AuthRouter);
-app.use('/v1/mantra',mantraRoutes.AuthRouter);
-app.use('/v1/subAdmin',subAdminRoutes.AuthRouter);
 
 
 

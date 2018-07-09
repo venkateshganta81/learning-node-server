@@ -4,7 +4,7 @@ var config = require('../config/config');
 var _ = require('underscore');
 
 function authMiddleWare(req, res, next){
-    var token = req.headers.token || req.cookies.token;
+    var token = req.headers.token || req.headers.authorization;
     if (!token) {
         res.status(401).send({status: false, message: 'Not Authorized'})
     } else {
