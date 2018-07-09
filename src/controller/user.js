@@ -136,7 +136,7 @@ User.prototype.getExperience = function(id,callback){
             callback(retObj);
         } else {
             retObj.status = true;
-            retObj.message = 'Successfully added Experience';
+            retObj.message = 'Successfully fetched Experience';
             retObj.data = data;
             delete userData.password;
             callback(retObj);
