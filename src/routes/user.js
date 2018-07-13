@@ -34,6 +34,17 @@ commonRouter.get('/getExperience',function(req,res){
     })
 })
 
+commonRouter.post('/addEmployee',function(req,res){
+    userClass.addEmployee(req.body,function(resp){
+        res.json(resp);
+    })
+})
+
+commonRouter.get('/getEmployee',function(req,res){
+    userClass.getEmployee(function(resp){
+        res.json(resp);
+    })
+})
 
 
 

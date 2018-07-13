@@ -6,11 +6,8 @@ var cookieParser = require('cookie-parser');
 
 var userRoutes = require('./src/routes/user');
 var userApi=require('./src/controller/user');
-var commonRoutes = require('./src/routes/common');
-var mantraRoutes = require('./src/routes/mantra');
 var config = require('./src/config/config');
 var authMiddleWare = require('./src/middleware/auth');
-var subAdminRoutes = require('./src/routes/subAdmin')
 
 var app = express();
 app.use(cors());
@@ -45,7 +42,6 @@ app.use((req, res, next) => {
 /* CORS */
 app.use('/v1/user', userRoutes.commonRouter);
 app.use(authMiddleWare)
-app.use('/v1/common',commonRoutes.AuthRouter);
 
 
 

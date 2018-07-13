@@ -74,13 +74,27 @@ var mantraSchema = new mongoose.Schema(
   }
 );
 
+
+var employee = new mongoose.Schema({
+  name : String,
+  age : Number,
+  email : String,
+  gender : String,
+  designation : String,
+  bloodGroup : String,
+  profilePic : String,
+  mobile : String
+})
+
 var mantraModel = mongoose.model("mantras", mantraSchema);
 var userModel = mongoose.model("users", userSchema);
 var createdUserCollection = mongoose.model("createdUsers", user);
+var employeeCollection = mongoose.model('employees',employee)
 /* var userSocialModel = mongoose.model('socialusers', userSocialSchema); */
 
 module.exports = {
   userModel: userModel,
   mantraModel: mantraModel,
   createdUserCollection: createdUserCollection,
+  employeeCollection:employeeCollection
 };
