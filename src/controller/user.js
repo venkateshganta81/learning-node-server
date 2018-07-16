@@ -123,7 +123,6 @@ User.prototype.addExperience = function(id, details,callback){
             retObj.status = true;
             retObj.message = 'Successfully added Experience';
             retObj.data = data;
-            delete userData.password;
             callback(retObj);
         }
     })
@@ -141,7 +140,6 @@ User.prototype.getExperience = function(id,callback){
             retObj.status = true;
             retObj.message = 'Successfully fetched Experience';
             retObj.data = data;
-            delete userData.password;
             callback(retObj);
         }
     })
