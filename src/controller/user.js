@@ -113,6 +113,7 @@ User.prototype.login = function (body, callback) {
 
 
 User.prototype.addExperience = function(id, details,callback){
+    var retObj = {};
     userCollection.findOneAndUpdate({_id:id},{$push:{"experience":details}},{new:true},function(err,data){
         if (err) {
             retObj.status = false;
@@ -130,6 +131,7 @@ User.prototype.addExperience = function(id, details,callback){
 
 
 User.prototype.getExperience = function(id,callback){
+    var retObj = {};
     userCollection.findOneAndUpdate({_id:id},function(err,data){
         if (err) {
             retObj.status = false;
@@ -207,6 +209,7 @@ User.prototype.addEmployee = function(details,callback){
 
 
 User.prototype.getEmployee = function(callback){
+    var retObj = {};
     employeeCollection.find({},function(err,employeeDetails){
         if (err) {
             retObj.status = false;
